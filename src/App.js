@@ -1,23 +1,12 @@
-import logo from './logo.svg';
 import './App.css';
+import { Room1 } from './scenes/Room1/Room1';
+// import { Template } from './scenes/Template/Template';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <Template/> */}
+      <Room1/>
     </div>
   );
 }
