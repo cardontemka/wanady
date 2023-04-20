@@ -1,7 +1,7 @@
 import { useRef } from "react"
 import { Template } from "../Template/Template";
-import safeImg from "./images/safe.png"
-import openedSafeImg from "./images/openedSafe.png"
+import trashImg from "./images/trash.png"
+import chairImg from "./images/streetChair.png"
 
 export const Room1 = () => {
     const usefulItems = useRef([
@@ -18,59 +18,59 @@ export const Room1 = () => {
     ]);
     const objects = useRef([
         {
-            x: 1200, // table
-            y: 330,
-            width: 200,
-            height: 150,
-            image: "https://pngimg.com/d/table_PNG6990.png",
+            x: 1200, // pole
+            y: -300,
+            width: 300,
+            height: 800,
+            image: "https://pngimg.com/d/street_light_PNG11511.png",
         },
         {
-            x: 700, // sofa
-            y: 300,
+            x: 700, // chair
+            y: 100,
             width: 400,
             height: 200,
-            image: "https://www.pngall.com/wp-content/uploads/2016/04/Sofa-Download-PNG.png",
+            image: chairImg,
         },
         {
-            x: 1100, // art
+            x: 100, // sign
             y: 200,
             width: 100,
             height: 100,
-            image: "https://v1.imgix.net/imagecache/4/7/si-471864.jpg_ihcm-49.94_iwcm-50.00_fls-880229L.tif_fts-880229T.tif_mc-ffffff_fwcm-1.60_tmwcm-5.00_bmwcm-5.00_lmwcm-5.00_rmwcm-5.00_maxdim-1000_en_easyart___iar-1.jpg?ixlib=rails-4.3.1&auto=compress%2Cformat&nr=20&nrs=20&q=50",
+            image: "https://cdn.pixabay.com/photo/2012/04/24/11/22/no-39409_960_720.png",
         },
         {
-            x: 850, // clock
-            y: 100,
-            width: 90,
-            height: 90,
-            image: "https://freepngimg.com/thumb/antique/132195-antique-clock-png-download-free.png",
+            x: 1050, // trash
+            y: 110,
+            width: 150,
+            height: 200,
+            image: trashImg,
         },
     ]);
-    const puzzleObjects = useRef([
-        {
-            x: 1250, // safe
-            y: 260,
-            width: 100,
-            height: 80,
-            image: safeImg,
-            done: false,
-            doneImg: openedSafeImg,
-            function: "SafeFunction",
-            password: "0439",
-        },
-        {
-            x: 600, // puzzle
-            y: 240,
-            width: 80,
-            height: 80,
-            image: "https://lpc.opengameart.org/sites/default/files/RTS_Crate.png",
-            done: false,
-            doneImg: "https://t3.ftcdn.net/jpg/00/71/63/98/360_F_71639848_tr28eMShxPZCCMLOypA17UJDXzOC447o.jpg",
-            function: "SwitchPuzzle",
-            password: "",
-        },
-    ]);
+    // const puzzleObjects = useRef([
+    //     {
+    //         x: 1250, // safe
+    //         y: 260,
+    //         width: 100,
+    //         height: 80,
+    //         image: safeImg,
+    //         done: false,
+    //         doneImg: openedSafeImg,
+    //         function: "SafeFunction",
+    //         password: "0439",
+    //     },
+    //     {
+    //         x: 600, // puzzle
+    //         y: 240,
+    //         width: 80,
+    //         height: 80,
+    //         image: "https://lpc.opengameart.org/sites/default/files/RTS_Crate.png",
+    //         done: false,
+    //         doneImg: "https://t3.ftcdn.net/jpg/00/71/63/98/360_F_71639848_tr28eMShxPZCCMLOypA17UJDXzOC447o.jpg",
+    //         function: "SwitchPuzzle",
+    //         password: "",
+    //     },
+    // ]);
     return (
-        <Template usefulItems={usefulItems.current} objects={objects.current} puzzleObjects={puzzleObjects.current} />
+        <Template usefulItems={usefulItems.current} objects={objects.current} />
     )
 }
