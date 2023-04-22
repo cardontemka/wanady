@@ -4,6 +4,8 @@ import styles from "./styles/Contain.module.css"
 import { Object } from "./styles/Objects"
 import { Player } from "./styles/Player"
 import { World } from "./styles/World"
+import dogImg from "./images/dog.png"
+import { WallCollision } from "./WallCollision"
 
 export const Template = (props) => {
     const player = useRef({
@@ -11,7 +13,19 @@ export const Template = (props) => {
         y: 250,
         width: 100,
         height: 100,
-        image: "https://www.pngplay.com/wp-content/uploads/12/Clip-Art-Dog-Transparent-File.png"
+        image: dogImg,
+        last: {
+            up: false,
+            down: false,
+            left: false,
+            right: false,
+        },
+        now: {
+            up: false,
+            down: false,
+            left: false,
+            right: false,
+        }
     });
     const velocity = useRef({
         x: 0,
@@ -21,28 +35,34 @@ export const Template = (props) => {
         x: 100,
         y: 100,
     }); // room x value
-    const playerPosition = useRef({
-        up: false,
-        down: false,
-        left: false,
-        right: false,
-    });
+    // const playerPosition = useRef({
+    //     up: false,
+    //     down: false,
+    //     left: false,
+    //     right: false,
+    // });
     const [time, setTime] = useState(0); // active interval
 
     // main interval (tusda filed orulah ystoi)
     useEffect(() => {
         setTimeout(() => {
             setTime(time + 1);
-            if (playerPosition.current.left) {
+            for (let i = 0; i < props.objects.length; i++) {
+                WallCollision(player.current, props.objects[i])
+                // if (Detect(player.current, props.objects[i])) {
+                //     break
+                // }
+            }
+            if (player.current.now.left) {
                 velocity.current.x = 8;
-            } else if (playerPosition.current.right) {
+            } else if (player.current.now.right) {
                 velocity.current.x = -8;
             } else {
                 velocity.current.x = 0;
             }
-            if (playerPosition.current.up) {
+            if (player.current.now.up) {
                 velocity.current.y = 8;
-            } else if (playerPosition.current.down) {
+            } else if (player.current.now.down) {
                 velocity.current.y = -8;
             } else {
                 velocity.current.y = 0;
@@ -53,28 +73,48 @@ export const Template = (props) => {
             props.objects.map((item, _index) => {
                 item.x += velocity.current.x;
                 item.y += velocity.current.y;
+                // WallCollision(player.current, item);
+                // if (Detect(player.current, item)) {
+                //     if (player.current.last.up) {
+                //         player.current.now.up = false
+                //     } else if (player.current.last.down) {
+                //         player.current.now.down = false
+                //     } else if (player.current.last.left) {
+                //         player.current.now.left = false
+                //     } else if (player.current.last.right) {
+                //         player.current.now.right = false
+                //     }
+                // }
             })
         }, 30);
     }, [time]);
 
     onkeydown = ({ keyCode }) => {
-        console.log(keyCode)
+        // console.log(keyCode)
         switch (keyCode) {
             case 65: // left
-                playerPosition.current.left = true; //
-                playerPosition.current.right = false;
+                player.current.now.left = true; //
+                player.current.last.left = true; //
+                player.current.now.right = false;
+                player.current.last.right = false;
                 break;
             case 68: // right
-                playerPosition.current.left = false;
-                playerPosition.current.right = true; //
+                player.current.now.left = false;
+                player.current.last.left = false;
+                player.current.now.right = true; //
+                player.current.last.right = true; //
                 break;
             case 87: // up
-                playerPosition.current.up = true; //
-                playerPosition.current.down = false;
+                player.current.now.up = true; //
+                player.current.last.up = true; //
+                player.current.now.down = false;
+                player.current.last.down = false;
                 break;
             case 83: // down
-                playerPosition.current.up = false;
-                playerPosition.current.down = true; //
+                player.current.now.up = false;
+                player.current.last.up = false;
+                player.current.now.down = true; //
+                player.current.last.down = true; //
                 break;
             default:
             // nothing
@@ -84,16 +124,16 @@ export const Template = (props) => {
     onkeyup = ({ keyCode }) => {
         switch (keyCode) {
             case 65: // left
-                playerPosition.current.left = false;
+                player.current.now.left = false;
                 break;
             case 68: // right
-                playerPosition.current.right = false;
+                player.current.now.right = false;
                 break;
             case 87: // up
-                playerPosition.current.up = false;
+                player.current.now.up = false;
                 break;
             case 83: // down
-                playerPosition.current.down = false;
+                player.current.now.down = false;
                 break;
             default:
             // nothing

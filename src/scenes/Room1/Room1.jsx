@@ -18,25 +18,18 @@ export const Room1 = () => {
     ]);
     const objects = useRef([
         {
-            x: 1200, // pole
-            y: -300,
-            width: 300,
-            height: 800,
-            image: "https://pngimg.com/d/street_light_PNG11511.png",
-        },
-        {
             x: 700, // chair
-            y: 100,
+            y: 10,
             width: 400,
             height: 200,
             image: chairImg,
         },
         {
-            x: 100, // sign
-            y: 200,
-            width: 100,
-            height: 100,
-            image: "https://cdn.pixabay.com/photo/2012/04/24/11/22/no-39409_960_720.png",
+            x: 1200, // pole
+            y: -300,
+            width: 300,
+            height: 800,
+            image: "https://pngimg.com/d/street_light_PNG11511.png",
         },
         {
             x: 1050, // trash
