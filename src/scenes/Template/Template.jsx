@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { Detect } from "./Detect"
 import styles from "./styles/Contain.module.css"
-import { Object } from "./styles/Objects"
+import { HitBox, Object } from "./styles/Objects"
 import { Player } from "./styles/Player"
 import { World } from "./styles/World"
 import dogImg from "./images/dog.png"
@@ -14,6 +14,8 @@ export const Template = (props) => {
         width: 100,
         height: 100,
         image: dogImg,
+        health: 100,
+        hunger: 100,
         last: {
             up: false,
             down: false,
@@ -47,12 +49,12 @@ export const Template = (props) => {
     useEffect(() => {
         setTimeout(() => {
             setTime(time + 1);
-            for (let i = 0; i < props.objects.length; i++) {
-                WallCollision(player.current, props.objects[i])
-                // if (Detect(player.current, props.objects[i])) {
-                //     break
-                // }
-            }
+            // for (let i = 0; i < props.objects.length; i++) {
+            //     WallCollision(player.current, props.objects[i])
+            // }
+            props.objects.map((item, _index) => {
+                WallCollision(player.current, item)
+            })
             if (player.current.now.left) {
                 velocity.current.x = 8;
             } else if (player.current.now.right) {
@@ -73,18 +75,8 @@ export const Template = (props) => {
             props.objects.map((item, _index) => {
                 item.x += velocity.current.x;
                 item.y += velocity.current.y;
-                // WallCollision(player.current, item);
-                // if (Detect(player.current, item)) {
-                //     if (player.current.last.up) {
-                //         player.current.now.up = false
-                //     } else if (player.current.last.down) {
-                //         player.current.now.down = false
-                //     } else if (player.current.last.left) {
-                //         player.current.now.left = false
-                //     } else if (player.current.last.right) {
-                //         player.current.now.right = false
-                //     }
-                // }
+                item.hitBox.x += velocity.current.x;
+                item.hitBox.y += velocity.current.y;
             })
         }, 30);
     }, [time]);
@@ -145,16 +137,13 @@ export const Template = (props) => {
             <World image="https://img.freepik.com/free-vector/seamless-green-grass-pattern_1284-52275.jpg" size={150} x={mapPosition.current.x} y={mapPosition.current.y}>
                 <>
                     {props.objects.map((item, index) => {
-                        return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} />
+                        return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} ahead={player.current.y + player.current.height - 25 < item.hitBox.y} />
                     })}
-                    {/* {props.puzzleObjects.map((item, index) => {
-                            return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.done ? item.doneImg : item.image} key={index} >
-                                {item.done &&
-                                    // puzzle duusad dotor n baigaa item
-                                    <Item exist={props.usefulItems[index].exist ? "block" : "none"} width={props.usefulItems[index].width} height={props.usefulItems[index].height} image={props.usefulItems[index].image} />
-                                }
-                            </Object>
-                        })} */}
+                    
+                    {/* {props.objects.map((item, index) => {
+                        return <HitBox x={item.hitBox.x} y={item.hitBox.y} width={item.hitBox.width} height={item.hitBox.height} image={item.hitBox.image} key={index} />
+                    })} */}
+
                     <Player x={player.current.x} y={player.current.y} width={player.current.width} height={player.current.height} image={player.current.image} />
                 </>
             </World>

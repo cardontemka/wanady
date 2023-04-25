@@ -1,33 +1,13 @@
 export const WallCollision = (player, brick) => {
-    if (player.y <= brick.y + brick.height && player.y + player.height >= brick.y && player.x <= brick.x + brick.width && player.x + player.width >= brick.x) {
-        if (player.y <= brick.y + brick.height && player.y >= brick.y + brick.height - 10 && player.x <= brick.x + brick.width && player.x + player.width >= brick.x) {
-            console.log("up")
+    if (player.y + 10 <= brick.hitBox.y + brick.hitBox.height && player.y + player.height - 10 >= brick.hitBox.y && player.x + 10 <= brick.hitBox.x + brick.hitBox.width && player.x + player.width - 10 >= brick.hitBox.x) {
+        if (player.y + 10 <= brick.hitBox.y + brick.hitBox.height && player.y >= brick.hitBox.y + brick.hitBox.height - 20 && player.x + 10 <= brick.hitBox.x + brick.hitBox.width && player.x + player.width - 10 >= brick.hitBox.x) {
             player.now.up = false
-        } else if (player.y + player.height >= brick.y && player.y + player.height <= brick.y + 10 && player.x <= brick.x + brick.width && player.x + player.width >= brick.x) {
-            console.log("down")
+        } else if (player.y + player.height - 10 >= brick.hitBox.y && player.y + player.height <= brick.hitBox.y + 20 && player.x + 10 <= brick.hitBox.x + brick.hitBox.width && player.x + player.width - 10 >= brick.hitBox.x) {
             player.now.down = false
-        } else if (player.x <= brick.x + brick.width && player.x >= brick.x + brick.width - 10 && player.y <= brick.y + brick.height && player.y + player.height >= brick.y) {
-            console.log("left")
+        } else if (player.x + 10 <= brick.hitBox.x + brick.hitBox.width && player.x >= brick.hitBox.x + brick.hitBox.width - 20 && player.y + 10 <= brick.hitBox.y + brick.hitBox.height && player.y + player.height - 10 >= brick.hitBox.y) {
             player.now.left = false
-        } else if (player.x + player.width >= brick.x && player.x + player.width <= brick.x + 10 && player.y <= brick.y + brick.height && player.y + player.height >= brick.y) {
-            console.log("right")
+        } else if (player.x + player.width - 10 >= brick.hitBox.x && player.x + player.width <= brick.hitBox.x + 20 && player.y + 10 <= brick.hitBox.y + brick.hitBox.height && player.y + player.height - 10 >= brick.hitBox.y) {
             player.now.right = false
         }
     }
-    // if (player.y <= brick.y + brick.height && player.y + player.height >= brick.y && player.x <= brick.x + brick.width && player.x + player.width >= brick.x) {
-    //     if (player.y <= brick.y + brick.height && player.x <= brick.x + brick.width && player.x + player.width >= brick.x) {
-    //         console.log("up")
-    //         player.now.up = false
-    //     } else if (player.y + player.height >= brick.y && player.x <= brick.x + brick.width && player.x + player.width >= brick.x) {
-    //         console.log("down")
-    //         player.now.down = false
-    //     } else if (player.x <= brick.x + brick.width && player.y <= brick.y + brick.height && player.y + player.height >= brick.y) {
-    //         console.log("left")
-    //         player.now.left = false
-    //     } else if (player.x + player.width >= brick.x && player.y <= brick.y + brick.height && player.y + player.height >= brick.y) {
-    //         console.log("right")
-    //         player.now.right = false
-    //     }
-    // }
-    console.log("no")
 }

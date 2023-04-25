@@ -11,4 +11,5 @@ export const Player = styled.div`
     background-repeat: no-repeat;
     top: ${props => props.y * flex}px;
     left: ${props => props.x * flex}px;
+    z-index: 2;
 `

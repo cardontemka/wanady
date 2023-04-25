@@ -14,18 +14,15 @@ export const Object = styled.div`
     background-repeat: no-repeat;
     left: ${props => props.x * flex}px;
     top: ${props => props.y * flex}px;
+    z-index: ${props => props.ahead ? 3 : 1};
 `
 
-export const InputSafe = styled.div`
+export const HitBox = styled.div`
     position: absolute;
     width: ${props => props.width * flex}px;
     height: ${props => props.height * flex}px;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    background-repeat: no-repeat;
-    font-size: 2vw;
     left: ${props => props.x * flex}px;
     top: ${props => props.y * flex}px;
-    gap: ${3 * flex}px;
+    background-color: red;
+    z-index: 10;
 `
