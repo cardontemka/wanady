@@ -1,13 +1,16 @@
 import { useEffect, useRef, useState } from "react"
-import { Detect } from "./Detect"
+import mapData from "./map"
+import { Detect } from "./js/Detect"
 import styles from "./styles/Contain.module.css"
 import { HitBox, Object } from "./styles/Objects"
 import { Player } from "./styles/Player"
 import { World } from "./styles/World"
 import dogImg from "./images/dog.png"
-import { WallCollision } from "./WallCollision"
+import heartImg from "./images/heart.png"
+import { WallCollision } from "./js/WallCollision"
+import { HealthBar } from "./styles/HealthBar"
 
-export const Template = (props) => {
+export const Game = () => {
     const player = useRef({
         x: 400,
         y: 250,
@@ -36,25 +39,28 @@ export const Template = (props) => {
     const mapPosition = useRef({
         x: 100,
         y: 100,
-    }); // room x value
-    // const playerPosition = useRef({
-    //     up: false,
-    //     down: false,
-    //     left: false,
-    //     right: false,
-    // });
+    }); // veiwport
     const [time, setTime] = useState(0); // active interval
+    const [isPaused, setIsPaused] = useState(false); // pause
 
     // main interval (tusda filed orulah ystoi)
     useEffect(() => {
         setTimeout(() => {
-            setTime(time + 1);
-            // for (let i = 0; i < props.objects.length; i++) {
-            //     WallCollision(player.current, props.objects[i])
+            // render
+            if (time >= 0) {
+                setTime(time + 1);
+            }
+            if (time > 1000) {
+                setTime(0);
+            }
+            // if (isPaused) {
+            //     setTime(-1);
             // }
-            props.objects.map((item, _index) => {
+            //
+            mapData.objects.map((item, _index) => {
                 WallCollision(player.current, item)
             })
+
             if (player.current.now.left) {
                 velocity.current.x = 8;
             } else if (player.current.now.right) {
@@ -69,10 +75,11 @@ export const Template = (props) => {
             } else {
                 velocity.current.y = 0;
             }
+
             mapPosition.current.x += velocity.current.x;
             mapPosition.current.y += velocity.current.y;
             // console.log(mapPosition)
-            props.objects.map((item, _index) => {
+            mapData.objects.map((item, _index) => {
                 item.x += velocity.current.x;
                 item.y += velocity.current.y;
                 item.hitBox.x += velocity.current.x;
@@ -82,7 +89,7 @@ export const Template = (props) => {
     }, [time]);
 
     onkeydown = ({ keyCode }) => {
-        // console.log(keyCode)
+        console.log(keyCode)
         switch (keyCode) {
             case 65: // left
                 player.current.now.left = true; //
@@ -136,14 +143,16 @@ export const Template = (props) => {
         <div className={styles.contain}>
             <World image="https://img.freepik.com/free-vector/seamless-green-grass-pattern_1284-52275.jpg" size={150} x={mapPosition.current.x} y={mapPosition.current.y}>
                 <>
-                    {props.objects.map((item, index) => {
+                    {mapData.objects.map((item, index) => {
                         return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} ahead={player.current.y + player.current.height - 25 < item.hitBox.y} />
                     })}
-                    
-                    {/* {props.objects.map((item, index) => {
+
+                    {/* {mapData.objects.map((item, index) => {
                         return <HitBox x={item.hitBox.x} y={item.hitBox.y} width={item.hitBox.width} height={item.hitBox.height} image={item.hitBox.image} key={index} />
                     })} */}
 
+                    <Object x={12} y={13} width={26} height={26} image={heartImg} ahead={true} />
+                    <HealthBar color="red" health={player.current.health} />
                     <Player x={player.current.x} y={player.current.y} width={player.current.width} height={player.current.height} image={player.current.image} />
                 </>
             </World>
