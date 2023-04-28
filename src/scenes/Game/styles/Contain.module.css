@@ -17,28 +17,17 @@
     overflow: hidden;
 }
 
-.safeButton {
+.pauseContain {
     display: flex;
-    align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    width: 30%;
-    color: white;
-    background-color: rgb(20, 20, 20);
-    cursor: pointer;
+    align-items: center;
+    width: 50vw;
+    height: fit-content;
+    padding: 5vw;
+    background-color: black;
 }
 
-.safeButton:hover {
-    background-color: rgb(80, 80, 80);
-}
-
-.safeInputContain {
-    outline: none;
-    width: 100%;
-    margin: 0 0 10%;
-    padding: 0 10%;
+.pauseTitle {
     font-size: 2vw;
-    border-radius: 20px;
-    border: none;
-    background-color: rgb(180, 180, 180);
+    color: white;
 }

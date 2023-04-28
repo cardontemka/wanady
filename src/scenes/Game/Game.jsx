@@ -7,8 +7,10 @@ import { Player } from "./styles/Player"
 import { World } from "./styles/World"
 import dogImg from "./images/dog.png"
 import heartImg from "./images/heart.png"
+import hungerImg from "./images/hunger.png"
 import { WallCollision } from "./js/WallCollision"
 import { HealthBar } from "./styles/HealthBar"
+import { Pause } from "./components/Pause"
 
 export const Game = () => {
     const player = useRef({
@@ -53,9 +55,17 @@ export const Game = () => {
             if (time > 1000) {
                 setTime(0);
             }
-            // if (isPaused) {
-            //     setTime(-1);
-            // }
+            if (time % 1 === 0 && player.current.hunger >= 0) {
+                player.current.hunger--;
+            }
+            if (player.current.hunger <= 1 && time % 1 === 0 && player.current.health >= 0) {
+                player.current.health--;
+                console.log("hrt")
+            }
+            if (player.current.health <= 0) {
+                setIsPaused(true);
+                setTime(-1);
+            }
             //
             mapData.objects.map((item, _index) => {
                 WallCollision(player.current, item)
@@ -142,19 +152,22 @@ export const Game = () => {
     return (
         <div className={styles.contain}>
             <World image="https://img.freepik.com/free-vector/seamless-green-grass-pattern_1284-52275.jpg" size={150} x={mapPosition.current.x} y={mapPosition.current.y}>
-                <>
-                    {mapData.objects.map((item, index) => {
-                        return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} ahead={player.current.y + player.current.height - 25 < item.hitBox.y} />
-                    })}
+                {mapData.objects.map((item, index) => {
+                    return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} ahead={player.current.y + player.current.height - 25 < item.hitBox.y} />
+                })}
 
-                    {/* {mapData.objects.map((item, index) => {
+                {/* {mapData.objects.map((item, index) => {
                         return <HitBox x={item.hitBox.x} y={item.hitBox.y} width={item.hitBox.width} height={item.hitBox.height} image={item.hitBox.image} key={index} />
                     })} */}
 
-                    <Object x={12} y={13} width={26} height={26} image={heartImg} ahead={true} />
-                    <HealthBar color="red" health={player.current.health} />
-                    <Player x={player.current.x} y={player.current.y} width={player.current.width} height={player.current.height} image={player.current.image} />
-                </>
+                <Object x={12} y={16} width={20} height={20} image={heartImg} ahead={true} />
+                <HealthBar x={40} y={20} color="red" health={player.current.health} />
+                <Object x={12} y={41} width={20} height={20} image={hungerImg} ahead={true} />
+                <HealthBar x={40} y={45} color="brown" health={player.current.hunger} />
+                <Player x={player.current.x} y={player.current.y} width={player.current.width} height={player.current.height} image={player.current.image} />
+                {isPaused &&
+                    <Pause title="Game Over" />
+                }
             </World>
         </div>
     )
