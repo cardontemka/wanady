@@ -2,7 +2,7 @@ import trashImg from "./images/trash.png"
 import chairImg from "./images/streetChair.png"
 import lightImg from "./images/streetLight.png"
 export default {
-    // hit box durem: height 30 bn. y deer anh bsn heightes 80 hassan hemjege nemne
+    // hit box durem: height 10 bn. y deer anh bsn heightes 70 hassan hemjege nemne
     // ihenh tohioldold width ees 40 ig hasna. x dr 20 iig nemne
     objects: [
         {
@@ -13,9 +13,9 @@ export default {
             image: chairImg,
             hitBox: {
                 width: 260,
-                height: 30,
+                height: 10,
                 x: 720,
-                y: 110,
+                y: 120,
             }
         },
         {
@@ -26,9 +26,9 @@ export default {
             image: lightImg,
             hitBox: {
                 width: 20,
-                height: 30,
+                height: 10,
                 x: 1240,
-                y: 120,
+                y: 130,
             }
         },
         {
@@ -39,9 +39,9 @@ export default {
             image: trashImg,
             hitBox: {
                 width: 40,
-                height: 30,
+                height: 10,
                 x: 1070,
-                y: 100,
+                y: 110,
             }
         },
     ]

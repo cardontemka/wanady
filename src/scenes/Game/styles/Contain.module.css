@@ -19,15 +19,36 @@
 
 .pauseContain {
     display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
     justify-content: center;
     align-items: center;
-    width: 50vw;
+    width: 10vw;
     height: fit-content;
-    padding: 5vw;
+    padding: 1vw;
     background-color: black;
+    border-radius: 2vw;
+    z-index: 10;
 }
 
 .pauseTitle {
     font-size: 2vw;
     color: white;
+    margin: 1vw;
+}
+
+.pauseOption {
+    font-size: 1vw;
+    color: white;
+    margin: 0 0 0.5vw 0;
+}
+
+.pauseOption:hover {
+    color: rgb(200, 200, 200);
+    font-size: calc(1vw + 2px);
 }

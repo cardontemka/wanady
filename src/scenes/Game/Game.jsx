@@ -34,6 +34,11 @@ export const Game = () => {
             right: false,
         }
     });
+    const game = useRef({
+        paused: false,
+        win: false,
+        lose: false,
+    })
     const velocity = useRef({
         x: 0,
         y: 0,
@@ -43,32 +48,37 @@ export const Game = () => {
         y: 100,
     }); // veiwport
     const [time, setTime] = useState(0); // active interval
-    const [isPaused, setIsPaused] = useState(false); // pause
 
-    // main interval (tusda filed orulah ystoi)
+    // main interval (tusda filed orulah ystoi) zza lai2
     useEffect(() => {
         setTimeout(() => {
             // render
-            if (time >= 0) {
+            console.log(time)
+            if (time >= 0 && !game.current.paused) {
                 setTime(time + 1);
-            }
-            if (time > 1000) {
+            } else if (time > 1000) {
                 setTime(0);
             }
-            if (time % 1 === 0 && player.current.hunger >= 0) {
-                player.current.hunger--;
-            }
-            if (player.current.hunger <= 1 && time % 1 === 0 && player.current.health >= 0) {
-                player.current.health--;
-                console.log("hrt")
+            if (time % 50 === 0) {
+                if (player.current.hunger >= 0) {
+                    player.current.hunger--;
+                }
+                if (player.current.hunger <= 1 && player.current.health >= 0) {
+                    player.current.health--;
+                } else if (player.current.hunger > 30 && player.current.health <= 100) {
+                    player.current.health++;
+                }
             }
             if (player.current.health <= 0) {
-                setIsPaused(true);
-                setTime(-1);
+                game.current.paused = true;
+                game.current.lose = true;
+                setTime(-10);
             }
             //
             mapData.objects.map((item, _index) => {
-                WallCollision(player.current, item)
+                if (item.hitBox) {
+                    WallCollision(player.current, item)
+                }
             })
 
             if (player.current.now.left) {
@@ -92,14 +102,26 @@ export const Game = () => {
             mapData.objects.map((item, _index) => {
                 item.x += velocity.current.x;
                 item.y += velocity.current.y;
-                item.hitBox.x += velocity.current.x;
-                item.hitBox.y += velocity.current.y;
+                if (item.hitBox) {
+                    item.hitBox.x += velocity.current.x;
+                    item.hitBox.y += velocity.current.y;
+                }
             })
         }, 30);
     }, [time]);
 
+    const handlePause = () => {
+        if (game.current.paused) {
+            game.current.paused = false
+            setTime(0);
+        } else {
+            game.current.paused = true
+            setTime(-10);
+        }
+    }
+
     onkeydown = ({ keyCode }) => {
-        console.log(keyCode)
+        // console.log(keyCode)
         switch (keyCode) {
             case 65: // left
                 player.current.now.left = true; //
@@ -125,6 +147,8 @@ export const Game = () => {
                 player.current.now.down = true; //
                 player.current.last.down = true; //
                 break;
+            case 27: // pause
+                handlePause();
             default:
             // nothing
         }
@@ -153,22 +177,22 @@ export const Game = () => {
         <div className={styles.contain}>
             <World image="https://img.freepik.com/free-vector/seamless-green-grass-pattern_1284-52275.jpg" size={150} x={mapPosition.current.x} y={mapPosition.current.y}>
                 {mapData.objects.map((item, index) => {
-                    return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} ahead={player.current.y + player.current.height - 25 < item.hitBox.y} />
+                    return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} ahead={player.current.y + player.current.height - 25 < item.hitBox?.y} />
                 })}
 
                 {/* {mapData.objects.map((item, index) => {
-                        return <HitBox x={item.hitBox.x} y={item.hitBox.y} width={item.hitBox.width} height={item.hitBox.height} image={item.hitBox.image} key={index} />
-                    })} */}
+                    return <HitBox x={item.hitBox.x} y={item.hitBox.y} width={item.hitBox.width} height={item.hitBox.height} image={item.hitBox.image} key={index} />
+                })} */}
 
                 <Object x={12} y={16} width={20} height={20} image={heartImg} ahead={true} />
                 <HealthBar x={40} y={20} color="red" health={player.current.health} />
                 <Object x={12} y={41} width={20} height={20} image={hungerImg} ahead={true} />
                 <HealthBar x={40} y={45} color="brown" health={player.current.hunger} />
                 <Player x={player.current.x} y={player.current.y} width={player.current.width} height={player.current.height} image={player.current.image} />
-                {isPaused &&
-                    <Pause title="Game Over" />
-                }
             </World>
+            {game.current.paused &&
+                <Pause title={game.current.win ? "Win" : game.current.lose ? "Died" : "Paused"} end={game.current.win || game.current.lose ? true : false} pause={handlePause} />
+            }
         </div>
     )
 }
