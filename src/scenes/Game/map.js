@@ -37,6 +37,7 @@ export default {
             width: 80,
             height: 120,
             image: trashImg,
+            food: true,
             hitBox: {
                 width: 40,
                 height: 10,

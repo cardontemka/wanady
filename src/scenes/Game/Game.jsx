@@ -11,6 +11,7 @@ import hungerImg from "./images/hunger.png"
 import { WallCollision } from "./js/WallCollision"
 import { HealthBar } from "./styles/HealthBar"
 import { Pause } from "./components/Pause"
+import { Text } from "./styles/Text"
 
 export const Game = () => {
     const player = useRef({
@@ -21,6 +22,8 @@ export const Game = () => {
         image: dogImg,
         health: 100,
         hunger: 100,
+        text: "",
+        foodId: null,
         last: {
             up: false,
             down: false,
@@ -56,8 +59,14 @@ export const Game = () => {
             console.log(time)
             if (time >= 0 && !game.current.paused) {
                 setTime(time + 1);
-            } else if (time > 1000) {
+            }
+            if (time > 1000) {
                 setTime(0);
+                // mapData.objects.map((item, _index) => {
+                //     if (item.food && !item.food) {
+                //         item.food = true
+                //     }
+                // })
             }
             if (time % 50 === 0) {
                 if (player.current.hunger >= 0) {
@@ -80,6 +89,18 @@ export const Game = () => {
                     WallCollision(player.current, item)
                 }
             })
+            // hoolig tusad n array bolgoj oruulj irne ene funcig oorchilno
+            for (let i=0; i < mapData.objects.length; i++) {
+                if (Detect(player.current, mapData.objects[i].hitBox)) {
+                    if (mapData.objects[i].food) {
+                        player.current.text = "Press E"
+                        player.current.foodId = i;
+                        break;
+                    }
+                } else {
+                    player.current.text = ""
+                }
+            }
 
             if (player.current.now.left) {
                 velocity.current.x = 8;
@@ -112,16 +133,16 @@ export const Game = () => {
 
     const handlePause = () => {
         if (game.current.paused) {
-            game.current.paused = false
+            game.current.paused = false;
             setTime(0);
         } else {
-            game.current.paused = true
+            game.current.paused = true;
             setTime(-10);
         }
     }
 
     onkeydown = ({ keyCode }) => {
-        // console.log(keyCode)
+        console.log(keyCode)
         switch (keyCode) {
             case 65: // left
                 player.current.now.left = true; //
@@ -149,6 +170,17 @@ export const Game = () => {
                 break;
             case 27: // pause
                 handlePause();
+                break
+            case 69: // pause
+                if (player.current.text === "Press E" && player.current.foodId !== null) {
+                    mapData.objects[player.current.foodId].food = false;
+                    if (player.current.hunger <= 90) {
+                        player.current.hunger += 10
+                    } else {
+                        player.current.hunger = 100;
+                    }
+                }
+                break
             default:
             // nothing
         }
@@ -189,6 +221,7 @@ export const Game = () => {
                 <Object x={12} y={41} width={20} height={20} image={hungerImg} ahead={true} />
                 <HealthBar x={40} y={45} color="brown" health={player.current.hunger} />
                 <Player x={player.current.x} y={player.current.y} width={player.current.width} height={player.current.height} image={player.current.image} />
+                {player.current.text && <Text x={player.current.x + 10} y={player.current.y - 30} size={25} color="white" >{player.current.text}</Text>}
             </World>
             {game.current.paused &&
                 <Pause title={game.current.win ? "Win" : game.current.lose ? "Died" : "Paused"} end={game.current.win || game.current.lose ? true : false} pause={handlePause} />
