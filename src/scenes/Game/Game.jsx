@@ -12,6 +12,7 @@ import { WallCollision } from "./js/WallCollision"
 import { HealthBar } from "./styles/HealthBar"
 import { Pause } from "./components/Pause"
 import { Text } from "./styles/Text"
+import { CircleBar } from "./styles/Circle"
 
 export const Game = () => {
     const player = useRef({
@@ -62,11 +63,11 @@ export const Game = () => {
             }
             if (time > 1000) {
                 setTime(0);
-                // mapData.objects.map((item, _index) => {
-                //     if (item.food && !item.food) {
-                //         item.food = true
-                //     }
-                // })
+                mapData.food.map((item, _index) => {
+                    if (item.attemps <= 0) {
+                        item.attemps = item.value
+                    }
+                })
             }
             if (time % 50 === 0) {
                 if (player.current.hunger >= 0) {
@@ -90,14 +91,19 @@ export const Game = () => {
                 }
             })
             // hoolig tusad n array bolgoj oruulj irne ene funcig oorchilno
-            for (let i=0; i < mapData.objects.length; i++) {
-                if (Detect(player.current, mapData.objects[i].hitBox)) {
-                    if (mapData.objects[i].food) {
+            for (let i=0; i < mapData.food.length; i++) {
+                if (Detect(player.current, mapData.food[i])) {
+                    if (mapData.food[i].attemps < mapData.food[i].value) {
                         player.current.text = "Press E"
                         player.current.foodId = i;
                         break;
+                    } else {
+                        player.current.text = ""
                     }
                 } else {
+                    if (mapData.food[i].attemps < mapData.food[i].value) {
+                        mapData.food[i].attemps = 0;
+                    }
                     player.current.text = ""
                 }
             }
@@ -123,10 +129,15 @@ export const Game = () => {
             mapData.objects.map((item, _index) => {
                 item.x += velocity.current.x;
                 item.y += velocity.current.y;
+                // 
                 if (item.hitBox) {
                     item.hitBox.x += velocity.current.x;
                     item.hitBox.y += velocity.current.y;
                 }
+            })
+            mapData.food.map((item, _index) => {
+                item.x += velocity.current.x;
+                item.y += velocity.current.y;
             })
         }, 30);
     }, [time]);
@@ -142,7 +153,7 @@ export const Game = () => {
     }
 
     onkeydown = ({ keyCode }) => {
-        console.log(keyCode)
+        // console.log(keyCode)
         switch (keyCode) {
             case 65: // left
                 player.current.now.left = true; //
@@ -171,13 +182,15 @@ export const Game = () => {
             case 27: // pause
                 handlePause();
                 break
-            case 69: // pause
+            case 69: // eat
                 if (player.current.text === "Press E" && player.current.foodId !== null) {
-                    mapData.objects[player.current.foodId].food = false;
-                    if (player.current.hunger <= 90) {
-                        player.current.hunger += 10
-                    } else {
-                        player.current.hunger = 100;
+                    mapData.food[player.current.foodId].attemps++;
+                    if (mapData.food[player.current.foodId].attemps === mapData.food[player.current.foodId].value) {
+                        if (player.current.hunger <= 80) {
+                            player.current.hunger += 20;
+                        } else {
+                            player.current.hunger = 100;
+                        }
                     }
                 }
                 break
@@ -212,6 +225,10 @@ export const Game = () => {
                     return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} ahead={player.current.y + player.current.height - 25 < item.hitBox?.y} />
                 })}
 
+                {/* {mapData.food.map((item, index) => {
+                    return <HitBox x={item.x} y={item.y} width={item.width} height={item.height} key={index} />
+                })} */}
+
                 {/* {mapData.objects.map((item, index) => {
                     return <HitBox x={item.hitBox.x} y={item.hitBox.y} width={item.hitBox.width} height={item.hitBox.height} image={item.hitBox.image} key={index} />
                 })} */}
@@ -222,6 +239,7 @@ export const Game = () => {
                 <HealthBar x={40} y={45} color="brown" health={player.current.hunger} />
                 <Player x={player.current.x} y={player.current.y} width={player.current.width} height={player.current.height} image={player.current.image} />
                 {player.current.text && <Text x={player.current.x + 10} y={player.current.y - 30} size={25} color="white" >{player.current.text}</Text>}
+                {player.current.text && <CircleBar x={player.current.x + player.current.width / 2 - 15} y={player.current.y} width={30} height={30} color="rgb(255, 166, 0)" fill={mapData.food[player.current.foodId].attemps / mapData.food[player.current.foodId].value * 360}  ></CircleBar>}
             </World>
             {game.current.paused &&
                 <Pause title={game.current.win ? "Win" : game.current.lose ? "Died" : "Paused"} end={game.current.win || game.current.lose ? true : false} pause={handlePause} />
