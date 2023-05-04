@@ -13,6 +13,7 @@ import { HealthBar } from "./styles/HealthBar"
 import { Pause } from "./components/Pause"
 import { Text } from "./styles/Text"
 import { CircleBar } from "./styles/Circle"
+import { Distance } from "./js/Distance"
 
 export const Game = () => {
     const player = useRef({
@@ -57,15 +58,15 @@ export const Game = () => {
     useEffect(() => {
         setTimeout(() => {
             // render
-            console.log(time)
+            // console.log(time)
             if (time >= 0 && !game.current.paused) {
                 setTime(time + 1);
             }
-            if (time > 1000) {
+            if (time > 4000) {
                 setTime(0);
                 mapData.food.map((item, _index) => {
-                    if (item.attemps <= 0) {
-                        item.attemps = item.value
+                    if (item.attemps >= item.value) {
+                        item.attemps = 0;
                     }
                 })
             }
@@ -76,9 +77,17 @@ export const Game = () => {
                 if (player.current.hunger <= 1 && player.current.health >= 0) {
                     player.current.health--;
                 } else if (player.current.hunger > 30 && player.current.health <= 100) {
-                    player.current.health++;
+                    player.current.health += 2;
                 }
             }
+            // win
+            if (Detect(player.current, mapData.finishPlace)) {
+                game.current.paused = true;
+                game.current.win = true;
+                setTime(-10);
+            }
+
+            // lose
             if (player.current.health <= 0) {
                 game.current.paused = true;
                 game.current.lose = true;
@@ -90,9 +99,22 @@ export const Game = () => {
                     WallCollision(player.current, item)
                 }
             })
+            mapData.food.map((item, _index) => {
+                if (item.hitBox) {
+                    WallCollision(player.current, item)
+                }
+            })
+            mapData.people.map((item, _index) => {
+                if (item.hitBox) {
+                    WallCollision(player.current, item)
+                }
+            })
+
+            console.log(Distance(player.current, mapData.finishPlace));
+
             // hoolig tusad n array bolgoj oruulj irne ene funcig oorchilno
             for (let i=0; i < mapData.food.length; i++) {
-                if (Detect(player.current, mapData.food[i])) {
+                if (Detect(player.current, mapData.food[i].hitBox)) {
                     if (mapData.food[i].attemps < mapData.food[i].value) {
                         player.current.text = "Press E"
                         player.current.foodId = i;
@@ -129,7 +151,6 @@ export const Game = () => {
             mapData.objects.map((item, _index) => {
                 item.x += velocity.current.x;
                 item.y += velocity.current.y;
-                // 
                 if (item.hitBox) {
                     item.hitBox.x += velocity.current.x;
                     item.hitBox.y += velocity.current.y;
@@ -138,12 +159,26 @@ export const Game = () => {
             mapData.food.map((item, _index) => {
                 item.x += velocity.current.x;
                 item.y += velocity.current.y;
+                if (item.hitBox) {
+                    item.hitBox.x += velocity.current.x;
+                    item.hitBox.y += velocity.current.y;
+                }
             })
+            mapData.people.map((item, _index) => {
+                item.x += velocity.current.x;
+                item.y += velocity.current.y;
+                if (item.hitBox) {
+                    item.hitBox.x += velocity.current.x;
+                    item.hitBox.y += velocity.current.y;
+                }
+            })
+            mapData.finishPlace.x += velocity.current.x;
+            mapData.finishPlace.y += velocity.current.y;
         }, 30);
     }, [time]);
 
     const handlePause = () => {
-        if (game.current.paused) {
+        if (game.current.paused && !game.current.win && !game.current.lose) {
             game.current.paused = false;
             setTime(0);
         } else {
@@ -218,6 +253,10 @@ export const Game = () => {
         }
     }
 
+    // console.log(player.current.y + player.current.height - 25 , mapData.food[0].hitBox?.y)
+    // console.log(mapData.food[0].hitBox.y)
+    // console.log(mapData.finishPlace)
+
     return (
         <div className={styles.contain}>
             <World image="https://img.freepik.com/free-vector/seamless-green-grass-pattern_1284-52275.jpg" size={150} x={mapPosition.current.x} y={mapPosition.current.y}>
@@ -225,8 +264,18 @@ export const Game = () => {
                     return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} ahead={player.current.y + player.current.height - 25 < item.hitBox?.y} />
                 })}
 
-                {/* {mapData.food.map((item, index) => {
-                    return <HitBox x={item.x} y={item.y} width={item.width} height={item.height} key={index} />
+                {mapData.food.map((item, index) => {
+                    return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} ahead={player.current.y + player.current.height - 25 < item.hitBox?.y} />
+                })}
+
+                {mapData.people.map((item, index) => {
+                    return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} ahead={player.current.y + player.current.height - 25 < item.hitBox?.y} />
+                })}
+
+                <Object x={mapData.finishPlace.x} y={mapData.finishPlace.y} width={mapData.finishPlace.width} height={mapData.finishPlace.height} image={mapData.finishPlace.image} ahead={player.current.y + player.current.height - 25 < mapData.finishPlace.hitBox?.y} />
+
+                {/* {mapData.people.map((item, index) => {
+                    return <HitBox x={item.hitBox.x} y={item.hitBox.y} width={item.hitBox.width} height={item.hitBox.height} key={index} />
                 })} */}
 
                 {/* {mapData.objects.map((item, index) => {
