@@ -14,6 +14,7 @@ import { Pause } from "./components/Pause"
 import { Text } from "./styles/Text"
 import { CircleBar } from "./styles/Circle"
 import { Distance } from "./js/Distance"
+import { Vector } from "./js/Vector"
 
 export const Game = () => {
     const player = useRef({
@@ -53,14 +54,16 @@ export const Game = () => {
         y: 100,
     }); // veiwport
     const [time, setTime] = useState(0); // active interval
+    const [timeHistory, setTimeHistory] = useState(0); // for pause
 
     // main interval (tusda filed orulah ystoi) zza lai2
     useEffect(() => {
         setTimeout(() => {
             // render
-            // console.log(time)
+            console.log(time)
             if (time >= 0 && !game.current.paused) {
                 setTime(time + 1);
+                setTimeHistory(time + 1);
             }
             if (time > 4000) {
                 setTime(0);
@@ -70,7 +73,7 @@ export const Game = () => {
                     }
                 })
             }
-            if (time % 50 === 0) {
+            if (time % 50 === 10) {
                 if (player.current.hunger >= 0) {
                     player.current.hunger--;
                 }
@@ -110,7 +113,7 @@ export const Game = () => {
                 }
             })
 
-            console.log(Distance(player.current, mapData.finishPlace));
+            // console.log(Distance(player.current, mapData.finishPlace));
 
             // hoolig tusad n array bolgoj oruulj irne ene funcig oorchilno
             for (let i=0; i < mapData.food.length; i++) {
@@ -171,6 +174,9 @@ export const Game = () => {
                     item.hitBox.x += velocity.current.x;
                     item.hitBox.y += velocity.current.y;
                 }
+                if (Distance(player.current, item) <= 300) {
+                    Vector(player.current, item);
+                }
             })
             mapData.finishPlace.x += velocity.current.x;
             mapData.finishPlace.y += velocity.current.y;
@@ -180,7 +186,7 @@ export const Game = () => {
     const handlePause = () => {
         if (game.current.paused && !game.current.win && !game.current.lose) {
             game.current.paused = false;
-            setTime(0);
+            setTime(timeHistory);
         } else {
             game.current.paused = true;
             setTime(-10);
@@ -286,7 +292,7 @@ export const Game = () => {
                 <HealthBar x={40} y={20} color="red" health={player.current.health} />
                 <Object x={12} y={41} width={20} height={20} image={hungerImg} ahead={true} />
                 <HealthBar x={40} y={45} color="brown" health={player.current.hunger} />
-                <Player x={player.current.x} y={player.current.y} width={player.current.width} height={player.current.height} image={player.current.image} />
+                <Player x={player.current.x} y={player.current.y} width={player.current.width} height={player.current.height} image={player.current.image} left={player.current.last.left} right={player.current.last.right} up={player.current.last.up} down={player.current.last.down} />
                 {player.current.text && <Text x={player.current.x + 10} y={player.current.y - 30} size={25} color="white" >{player.current.text}</Text>}
                 {player.current.text && <CircleBar x={player.current.x + player.current.width / 2 - 15} y={player.current.y} width={30} height={30} color="rgb(255, 166, 0)" fill={mapData.food[player.current.foodId].attemps / mapData.food[player.current.foodId].value * 360}  ></CircleBar>}
             </World>
