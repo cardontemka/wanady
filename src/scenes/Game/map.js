@@ -32,6 +32,19 @@ export default {
                 y: 110,
             }
         },
+        // {
+        //     x: 1800, // pole
+        //     y: 350,
+        //     width: 100,
+        //     height: 100,
+        //     image: "https://www.seekpng.com/png/detail/153-1537043_meme-emoji-discord-emoji-png-dank-discord-emoji.png",
+        //     hitBox: {
+        //         width: 60,
+        //         height: 10,
+        //         x: 1820,
+        //         y: 380,
+        //     }
+        // },
     ],
     // herve sandal dr hun suuj bga esvel ymr negen obj dr oor obj davharlagdaj bga bol hitBox in y ees ih baih ystoi bh ystoi
     food: [
@@ -69,7 +82,8 @@ export default {
     ],
     people: [
         {
-            x: 500,
+            type: "throw",
+            x: 300,
             y: 10,
             width: 200,
             height: 200,
@@ -77,8 +91,50 @@ export default {
             hitBox: {
                 width: 60,
                 height: 10,
-                x: 570, // origin + 70
+                x: 370, // origin + 70
                 y: 130, // origin + 120
+            },
+        },
+        {
+            type: "throw",
+            x: 100,
+            y: 100,
+            width: 200,
+            height: 200,
+            image: "https://freepngimg.com/thumb/man/148289-standing-man-business-suit-png-free-photo.png",
+            hitBox: {
+                width: 60,
+                height: 10,
+                x: 170, // origin + 70
+                y: 220, // origin + 120
+            },
+        },
+        {
+            type: "throw",
+            x: 350,
+            y: 400,
+            width: 200,
+            height: 200,
+            image: "https://freepngimg.com/thumb/man/148289-standing-man-business-suit-png-free-photo.png",
+            hitBox: {
+                width: 60,
+                height: 10,
+                x: 420, // origin + 70
+                y: 520, // origin + 120
+            },
+        },
+        {
+            type: "throw",
+            x: 600,
+            y: 300,
+            width: 200,
+            height: 200,
+            image: "https://freepngimg.com/thumb/man/148289-standing-man-business-suit-png-free-photo.png",
+            hitBox: {
+                width: 60,
+                height: 10,
+                x: 670, // origin + 70
+                y: 420, // origin + 120
             },
         },
     ],

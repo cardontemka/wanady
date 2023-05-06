@@ -14,6 +14,7 @@ import { Pause } from "./components/Pause"
 import { Text } from "./styles/Text"
 import { CircleBar } from "./styles/Circle"
 import { Distance } from "./js/Distance"
+import { Follow } from "./js/Follow"
 import { Vector } from "./js/Vector"
 
 export const Game = () => {
@@ -40,6 +41,7 @@ export const Game = () => {
             right: false,
         }
     });
+    const stones = useRef([]);
     const game = useRef({
         paused: false,
         win: false,
@@ -60,14 +62,14 @@ export const Game = () => {
     useEffect(() => {
         setTimeout(() => {
             // render
-            console.log(time)
+            // console.log(time)
             if (time >= 0 && !game.current.paused) {
                 setTime(time + 1);
                 setTimeHistory(time + 1);
             }
             if (time > 4000) {
                 setTime(0);
-                mapData.food.map((item, _index) => {
+                mapData.food.forEach((item, _index) => {
                     if (item.attemps >= item.value) {
                         item.attemps = 0;
                     }
@@ -84,7 +86,7 @@ export const Game = () => {
                 }
             }
             // win
-            if (Detect(player.current, mapData.finishPlace)) {
+            if (Detect(player.current, mapData.finishPlace, 20)) {
                 game.current.paused = true;
                 game.current.win = true;
                 setTime(-10);
@@ -97,18 +99,18 @@ export const Game = () => {
                 setTime(-10);
             }
             //
-            mapData.objects.map((item, _index) => {
-                if (item.hitBox) {
+            mapData.objects.forEach((item, index) => {
+                if (item.hitBox && item.hitBox.x > 0 && item.hitBox.y > 0 && item.hitBox.x < 1000 && item.hitBox.y < 600) {
                     WallCollision(player.current, item)
                 }
             })
-            mapData.food.map((item, _index) => {
-                if (item.hitBox) {
+            mapData.food.forEach((item, _index) => {
+                if (item.hitBox && item.hitBox.x > 0 && item.hitBox.y > 0 && item.hitBox.x < 1000 && item.hitBox.y < 600) {
                     WallCollision(player.current, item)
                 }
             })
-            mapData.people.map((item, _index) => {
-                if (item.hitBox) {
+            mapData.people.forEach((item, _index) => {
+                if (item.hitBox && item.hitBox.x > 0 && item.hitBox.y > 0 && item.hitBox.x < 1000 && item.hitBox.y < 600) {
                     WallCollision(player.current, item)
                 }
             })
@@ -116,8 +118,8 @@ export const Game = () => {
             // console.log(Distance(player.current, mapData.finishPlace));
 
             // hoolig tusad n array bolgoj oruulj irne ene funcig oorchilno
-            for (let i=0; i < mapData.food.length; i++) {
-                if (Detect(player.current, mapData.food[i].hitBox)) {
+            for (let i = 0; i < mapData.food.length; i++) {
+                if (Detect(player.current, mapData.food[i].hitBox, 0)) {
                     if (mapData.food[i].attemps < mapData.food[i].value) {
                         player.current.text = "Press E"
                         player.current.foodId = i;
@@ -151,7 +153,7 @@ export const Game = () => {
             mapPosition.current.x += velocity.current.x;
             mapPosition.current.y += velocity.current.y;
             // console.log(mapPosition)
-            mapData.objects.map((item, _index) => {
+            mapData.objects.forEach((item, _index) => {
                 item.x += velocity.current.x;
                 item.y += velocity.current.y;
                 if (item.hitBox) {
@@ -159,7 +161,7 @@ export const Game = () => {
                     item.hitBox.y += velocity.current.y;
                 }
             })
-            mapData.food.map((item, _index) => {
+            mapData.food.forEach((item, _index) => {
                 item.x += velocity.current.x;
                 item.y += velocity.current.y;
                 if (item.hitBox) {
@@ -167,15 +169,37 @@ export const Game = () => {
                     item.hitBox.y += velocity.current.y;
                 }
             })
-            mapData.people.map((item, _index) => {
+            mapData.people.forEach((item, _index) => {
                 item.x += velocity.current.x;
                 item.y += velocity.current.y;
                 if (item.hitBox) {
                     item.hitBox.x += velocity.current.x;
                     item.hitBox.y += velocity.current.y;
                 }
-                if (Distance(player.current, item) <= 300) {
-                    Vector(player.current, item);
+                if (item.type === "throw") {
+                    let distance = Distance(player.current, item);
+                    if (distance <= 400 && time % 50 === 10) {
+                        throwStone(item);
+                    }
+                }
+                // if (item.type === "beat") {
+                //     let distance = Distance(player.current, item);
+                //     if (distance <= 300 && distance >= 10) {
+                //         Follow(player.current, item);
+                //     }
+                // }
+            })
+            stones.current.forEach((item, index) => {
+                item.x += velocity.current.x + item.vx;
+                item.y += velocity.current.y + item.vy;
+                item.first.x += velocity.current.x;
+                item.first.y += velocity.current.y;
+                if (Detect(player.current, item, 40)) {
+                    player.current.health -= 5;
+                    stones.current.splice(index, 1);
+                }
+                if (Math.abs(item.x - item.first.x) + Math.abs(item.y - item.first.y) >= 500) {
+                    stones.current.splice(index, 1);
                 }
             })
             mapData.finishPlace.x += velocity.current.x;
@@ -191,6 +215,22 @@ export const Game = () => {
             game.current.paused = true;
             setTime(-10);
         }
+    }
+
+    const throwStone = (obj) => {
+        stones.current.push({
+            x: obj.x + obj.width / 2,
+            y: obj.y + obj.height / 2,
+            first: {
+                x: obj.x + obj.width / 2,
+                y: obj.y + obj.height / 2,
+            },
+            width: 20,
+            height: 20,
+            image: "https://www.pngall.com/wp-content/uploads/5/Stone-PNG-High-Quality-Image.png",
+            vx: Math.cos(Vector(player.current,obj)) * 5,
+            vy: Math.sin(Vector(player.current, obj)) * 5,
+        })
     }
 
     onkeydown = ({ keyCode }) => {
@@ -276,6 +316,10 @@ export const Game = () => {
 
                 {mapData.people.map((item, index) => {
                     return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} ahead={player.current.y + player.current.height - 25 < item.hitBox?.y} />
+                })}
+
+                {stones.current.map((item, index) => {
+                    return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} ahead={true} />
                 })}
 
                 <Object x={mapData.finishPlace.x} y={mapData.finishPlace.y} width={mapData.finishPlace.width} height={mapData.finishPlace.height} image={mapData.finishPlace.image} ahead={player.current.y + player.current.height - 25 < mapData.finishPlace.hitBox?.y} />
