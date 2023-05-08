@@ -13,4 +13,5 @@ export const Player = styled.div`
     top: ${props => props.y * flex}px;
     left: ${props => props.x * flex}px;
     z-index: 2;
+    transition: transform 300ms;
 `

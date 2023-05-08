@@ -82,7 +82,7 @@ export const Game = () => {
                 if (player.current.hunger <= 1 && player.current.health >= 0) {
                     player.current.health--;
                 } else if (player.current.hunger > 30 && player.current.health <= 100) {
-                    player.current.health += 2;
+                    player.current.health += 3;
                 }
             }
             // win
@@ -100,17 +100,17 @@ export const Game = () => {
             }
             //
             mapData.objects.forEach((item, index) => {
-                if (item.hitBox && item.hitBox.x > 0 && item.hitBox.y > 0 && item.hitBox.x < 1000 && item.hitBox.y < 600) {
+                if (item.hitBox && item.hitBox.x + item.hitBox.width > 0 && item.hitBox.y + item.hitBox.height > 0 && item.hitBox.x < 1000 && item.hitBox.y < 600) {
                     WallCollision(player.current, item)
                 }
             })
             mapData.food.forEach((item, _index) => {
-                if (item.hitBox && item.hitBox.x > 0 && item.hitBox.y > 0 && item.hitBox.x < 1000 && item.hitBox.y < 600) {
+                if (item.hitBox && item.hitBox.x + item.hitBox.width > 0 && item.hitBox.y + item.hitBox.height > 0 && item.hitBox.x < 1000 && item.hitBox.y < 600) {
                     WallCollision(player.current, item)
                 }
             })
             mapData.people.forEach((item, _index) => {
-                if (item.hitBox && item.hitBox.x > 0 && item.hitBox.y > 0 && item.hitBox.x < 1000 && item.hitBox.y < 600) {
+                if (item.hitBox && item.hitBox.x + item.hitBox.width > 0 && item.hitBox.y + item.hitBox.height > 0 && item.hitBox.x < 1000 && item.hitBox.y < 600) {
                     WallCollision(player.current, item)
                 }
             })
@@ -182,6 +182,12 @@ export const Game = () => {
                         throwStone(item);
                     }
                 }
+                if (item.type === "beat") {
+                    if (Detect(player.current, item, 20) && time % 20 === 10) {
+                        console.log("hit")
+                        player.current.health -= 4;
+                    }
+                }
                 // if (item.type === "beat") {
                 //     let distance = Distance(player.current, item);
                 //     if (distance <= 300 && distance >= 10) {
@@ -194,7 +200,7 @@ export const Game = () => {
                 item.y += velocity.current.y + item.vy;
                 item.first.x += velocity.current.x;
                 item.first.y += velocity.current.y;
-                if (Detect(player.current, item, 40)) {
+                if (Detect(player.current, item, 30)) {
                     player.current.health -= 5;
                     stones.current.splice(index, 1);
                 }
@@ -219,17 +225,17 @@ export const Game = () => {
 
     const throwStone = (obj) => {
         stones.current.push({
-            x: obj.x + obj.width / 2,
-            y: obj.y + obj.height / 2,
+            x: obj.x + obj.width * 0.5,
+            y: obj.y + obj.height * 0.3,
             first: {
-                x: obj.x + obj.width / 2,
-                y: obj.y + obj.height / 2,
+                x: obj.x + obj.width * 0.5,
+                y: obj.y + obj.height * 0.3,
             },
             width: 20,
             height: 20,
             image: "https://www.pngall.com/wp-content/uploads/5/Stone-PNG-High-Quality-Image.png",
-            vx: Math.cos(Vector(player.current,obj)) * 5,
-            vy: Math.sin(Vector(player.current, obj)) * 5,
+            vx: Math.cos(Vector(player.current, obj)) * 8,
+            vy: Math.sin(Vector(player.current, obj)) * 8,
         })
     }
 
@@ -307,19 +313,27 @@ export const Game = () => {
         <div className={styles.contain}>
             <World image="https://img.freepik.com/free-vector/seamless-green-grass-pattern_1284-52275.jpg" size={150} x={mapPosition.current.x} y={mapPosition.current.y}>
                 {mapData.objects.map((item, index) => {
-                    return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} ahead={player.current.y + player.current.height - 25 < item.hitBox?.y} />
+                    if (item.x < 1600 && item.x + item.width > -600 && item.y < 1200 && item.y + item.height > -600) {
+                        return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} ahead={player.current.y + player.current.height - 25 < item.hitBox?.y} opacity={item.y < player.current.y && item.y + item.height > 610 && item.x + 150 < player.current.x + player.current.width && item.x + item.width - 150 > player.current.x ? 0.5 : 1} />
+                    }
                 })}
 
                 {mapData.food.map((item, index) => {
-                    return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} ahead={player.current.y + player.current.height - 25 < item.hitBox?.y} />
+                    if (item.x < 1600 && item.x + item.width > -600 && item.y < 1200 && item.y + item.height > -600) {
+                        return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} ahead={player.current.y + player.current.height - 25 < item.hitBox?.y} />
+                    }
                 })}
 
                 {mapData.people.map((item, index) => {
-                    return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} ahead={player.current.y + player.current.height - 25 < item.hitBox?.y} />
+                    if (item.x < 1600 && item.x + item.width > -600 && item.y < 1200 && item.y + item.height > -600) {
+                        return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} ahead={player.current.y + player.current.height - 25 < item.hitBox?.y} />
+                    }
                 })}
 
                 {stones.current.map((item, index) => {
-                    return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} ahead={true} />
+                    if (item.x < 1600 && item.x + item.width > -600 && item.y < 1200 && item.y + item.height > -600) {
+                        return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} ahead={true} />
+                    }
                 })}
 
                 <Object x={mapData.finishPlace.x} y={mapData.finishPlace.y} width={mapData.finishPlace.width} height={mapData.finishPlace.height} image={mapData.finishPlace.image} ahead={player.current.y + player.current.height - 25 < mapData.finishPlace.hitBox?.y} />

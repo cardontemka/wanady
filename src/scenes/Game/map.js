@@ -32,19 +32,19 @@ export default {
                 y: 110,
             }
         },
-        // {
-        //     x: 1800, // pole
-        //     y: 350,
-        //     width: 100,
-        //     height: 100,
-        //     image: "https://www.seekpng.com/png/detail/153-1537043_meme-emoji-discord-emoji-png-dank-discord-emoji.png",
-        //     hitBox: {
-        //         width: 60,
-        //         height: 10,
-        //         x: 1820,
-        //         y: 380,
-        //     }
-        // },
+        {
+            x: 2000, // tree
+            y: 400,
+            width: 500,
+            height: 600,
+            image: "https://pngimg.com/d/tree_PNG92721.png",
+            hitBox: {
+                width: 30,
+                height: 20,
+                x: 2235,
+                y: 930, // 400 + (600 - 70) = 930
+            }
+        },
     ],
     // herve sandal dr hun suuj bga esvel ymr negen obj dr oor obj davharlagdaj bga bol hitBox in y ees ih baih ystoi bh ystoi
     food: [
@@ -83,58 +83,170 @@ export default {
     people: [
         {
             type: "throw",
-            x: 300,
+            x: 1300,
             y: 10,
             width: 200,
             height: 200,
             image: "https://freepngimg.com/thumb/man/148289-standing-man-business-suit-png-free-photo.png",
             hitBox: {
-                width: 60,
+                width: 20,
                 height: 10,
-                x: 370, // origin + 70
-                y: 130, // origin + 120
+                x: 1390, // origin + 90
+                y: 140, // origin + 130
             },
         },
         {
             type: "throw",
-            x: 100,
+            x: 1100,
             y: 100,
             width: 200,
             height: 200,
             image: "https://freepngimg.com/thumb/man/148289-standing-man-business-suit-png-free-photo.png",
             hitBox: {
-                width: 60,
+                width: 20,
                 height: 10,
-                x: 170, // origin + 70
-                y: 220, // origin + 120
+                x: 1190, // origin + 90
+                y: 230, // origin + 130
             },
         },
         {
             type: "throw",
-            x: 350,
+            x: 1350,
             y: 400,
             width: 200,
             height: 200,
             image: "https://freepngimg.com/thumb/man/148289-standing-man-business-suit-png-free-photo.png",
             hitBox: {
-                width: 60,
+                width: 20,
                 height: 10,
-                x: 420, // origin + 70
-                y: 520, // origin + 120
+                x: 1440, // origin + 90
+                y: 530, // origin + 130
             },
         },
         {
             type: "throw",
-            x: 600,
+            x: 1600,
             y: 300,
             width: 200,
             height: 200,
             image: "https://freepngimg.com/thumb/man/148289-standing-man-business-suit-png-free-photo.png",
             hitBox: {
-                width: 60,
+                width: 20,
                 height: 10,
-                x: 670, // origin + 70
-                y: 420, // origin + 120
+                x: 1690, // origin + 90
+                y: 430, // origin + 130
+            },
+        },
+        {
+            type: "beat",
+            x: 1000,
+            y: 500,
+            width: 200,
+            height: 200,
+            image: "https://i.pinimg.com/originals/c8/88/0f/c8880fd46397ea368d85e1933c274ac0.png",
+            hitBox: {
+                width: 20,
+                height: 10,
+                x: 1090, // origin + 90
+                y: 630, // origin + 130
+            },
+        },
+        {
+            type: "throw",
+            x: 2800,
+            y: 200,
+            width: 200,
+            height: 200,
+            image: "https://freepngimg.com/thumb/man/148289-standing-man-business-suit-png-free-photo.png",
+            hitBox: {
+                width: 20,
+                height: 10,
+                x: 2890, // origin + 90
+                y: 330, // origin + 130
+            },
+        },
+        {
+            type: "throw",
+            x: 2900,
+            y: 280,
+            width: 200,
+            height: 200,
+            image: "https://freepngimg.com/thumb/man/148289-standing-man-business-suit-png-free-photo.png",
+            hitBox: {
+                width: 20,
+                height: 10,
+                x: 2990, // origin + 90
+                y: 410, // origin + 130
+            },
+        },
+        {
+            type: "throw",
+            x: 3000,
+            y: 230,
+            width: 200,
+            height: 200,
+            image: "https://freepngimg.com/thumb/man/148289-standing-man-business-suit-png-free-photo.png",
+            hitBox: {
+                width: 20,
+                height: 10,
+                x: 3090, // origin + 90
+                y: 360, // origin + 130
+            },
+        },
+        {
+            type: "throw",
+            x: 2800,
+            y: 0,
+            width: 200,
+            height: 200,
+            image: "https://freepngimg.com/thumb/man/148289-standing-man-business-suit-png-free-photo.png",
+            hitBox: {
+                width: 20,
+                height: 10,
+                x: 2890, // origin + 90
+                y: 130, // origin + 130
+            },
+        },
+        {
+            type: "throw",
+            x: 2950,
+            y: -100,
+            width: 200,
+            height: 200,
+            image: "https://freepngimg.com/thumb/man/148289-standing-man-business-suit-png-free-photo.png",
+            hitBox: {
+                width: 20,
+                height: 10,
+                x: 3040, // origin + 90
+                y: 30, // origin + 130
+            },
+        },
+        {
+            type: "throw",
+            x: 3080,
+            y: -80,
+            width: 200,
+            height: 200,
+            image: "https://freepngimg.com/thumb/man/148289-standing-man-business-suit-png-free-photo.png",
+            hitBox: {
+                width: 20,
+                height: 10,
+                x: 3120, // origin + 90
+                y: 50, // origin + 130
+            },
+        },
+        {
+            type: "throw",
+            x: 3100,
+            y: 0,
+            width: 200,
+            height: 200,
+            image: "https://freepngimg.com/thumb/man/148289-standing-man-business-suit-png-free-photo.png",
+            hitBox: {
+                width: 20,
+                height: 10,
+                x: 3190, // origin + 90
+                y: 130, // origin + 130
             },
         },
     ],
