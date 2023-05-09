@@ -2,6 +2,7 @@ import trashImg from "./images/trash.png"
 import chairImg from "./images/streetChair.png"
 import lightImg from "./images/streetLight.png"
 import eatingImg from "./images/eatingMan.png"
+import manWithGunImg from "./images/manWithGun.png"
 export default {
     // hit box durem: height 10 bn. y deer anh bsn heightes 70 hassan hemjege nemne
     // ihenh tohioldold width ees 40 ig hasna. x dr 20 iig nemne
@@ -82,63 +83,38 @@ export default {
     ],
     people: [
         {
-            type: "throw",
-            x: 1300,
-            y: 10,
+            type: "shooter",
+            damage: true,
+            x: 100,
+            y: 500,
             width: 200,
             height: 200,
-            image: "https://freepngimg.com/thumb/man/148289-standing-man-business-suit-png-free-photo.png",
+            image: manWithGunImg,
             hitBox: {
                 width: 20,
                 height: 10,
-                x: 1390, // origin + 90
-                y: 140, // origin + 130
+                x: 190, // origin + 90
+                y: 630, // origin + 130
             },
         },
         {
-            type: "throw",
-            x: 1100,
-            y: 100,
+            type: "homeless",
+            damage: true,
+            x: 400,
+            y: 500,
             width: 200,
             height: 200,
-            image: "https://freepngimg.com/thumb/man/148289-standing-man-business-suit-png-free-photo.png",
+            image: "https://cdni.iconscout.com/illustration/premium/thumb/homeless-male-begging-money-2709888-2272470.png",
             hitBox: {
                 width: 20,
                 height: 10,
-                x: 1190, // origin + 90
-                y: 230, // origin + 130
+                x: 490, // origin + 90
+                y: 630, // origin + 130
             },
         },
         {
-            type: "throw",
-            x: 1350,
-            y: 400,
-            width: 200,
-            height: 200,
-            image: "https://freepngimg.com/thumb/man/148289-standing-man-business-suit-png-free-photo.png",
-            hitBox: {
-                width: 20,
-                height: 10,
-                x: 1440, // origin + 90
-                y: 530, // origin + 130
-            },
-        },
-        {
-            type: "throw",
-            x: 1600,
-            y: 300,
-            width: 200,
-            height: 200,
-            image: "https://freepngimg.com/thumb/man/148289-standing-man-business-suit-png-free-photo.png",
-            hitBox: {
-                width: 20,
-                height: 10,
-                x: 1690, // origin + 90
-                y: 430, // origin + 130
-            },
-        },
-        {
-            type: "beat",
+            type: "beater",
+            damage: true,
             x: 1000,
             y: 500,
             width: 200,
@@ -152,7 +128,68 @@ export default {
             },
         },
         {
-            type: "throw",
+            type: "thrower",
+            damage: true,
+            x: 1300,
+            y: 10,
+            width: 200,
+            height: 200,
+            image: "https://freepngimg.com/thumb/man/148289-standing-man-business-suit-png-free-photo.png",
+            hitBox: {
+                width: 20,
+                height: 10,
+                x: 1390, // origin + 90
+                y: 140, // origin + 130
+            },
+        },
+        {
+            type: "thrower",
+            damage: true,
+            x: 1100,
+            y: 100,
+            width: 200,
+            height: 200,
+            image: "https://freepngimg.com/thumb/man/148289-standing-man-business-suit-png-free-photo.png",
+            hitBox: {
+                width: 20,
+                height: 10,
+                x: 1190, // origin + 90
+                y: 230, // origin + 130
+            },
+        },
+        {
+            type: "thrower",
+            damage: true,
+            x: 1350,
+            y: 400,
+            width: 200,
+            height: 200,
+            image: "https://freepngimg.com/thumb/man/148289-standing-man-business-suit-png-free-photo.png",
+            hitBox: {
+                width: 20,
+                height: 10,
+                x: 1440, // origin + 90
+                y: 530, // origin + 130
+            },
+        },
+        {
+            type: "thrower",
+            damage: true,
+            x: 1600,
+            y: 300,
+            width: 200,
+            height: 200,
+            image: "https://freepngimg.com/thumb/man/148289-standing-man-business-suit-png-free-photo.png",
+            hitBox: {
+                width: 20,
+                height: 10,
+                x: 1690, // origin + 90
+                y: 430, // origin + 130
+            },
+        },
+        {
+            type: "thrower",
+            damage: true,
             x: 2800,
             y: 200,
             width: 200,
@@ -166,7 +203,8 @@ export default {
             },
         },
         {
-            type: "throw",
+            type: "thrower",
+            damage: true,
             x: 2900,
             y: 280,
             width: 200,
@@ -180,7 +218,8 @@ export default {
             },
         },
         {
-            type: "throw",
+            type: "thrower",
+            damage: true,
             x: 3000,
             y: 230,
             width: 200,
@@ -194,7 +233,8 @@ export default {
             },
         },
         {
-            type: "throw",
+            type: "thrower",
+            damage: true,
             x: 2800,
             y: 0,
             width: 200,
@@ -208,7 +248,8 @@ export default {
             },
         },
         {
-            type: "throw",
+            type: "thrower",
+            damage: true,
             x: 2950,
             y: -100,
             width: 200,
@@ -222,7 +263,8 @@ export default {
             },
         },
         {
-            type: "throw",
+            type: "thrower",
+            damage: true,
             x: 3080,
             y: -80,
             width: 200,
@@ -236,7 +278,8 @@ export default {
             },
         },
         {
-            type: "throw",
+            type: "thrower",
+            damage: true,
             x: 3100,
             y: 0,
             width: 200,
