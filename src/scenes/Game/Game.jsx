@@ -16,6 +16,7 @@ import { CircleBar } from "./styles/Circle"
 import { Distance } from "./js/Distance"
 import { Follow } from "./js/Follow"
 import { Vector } from "./js/Vector"
+import { MapLimit } from "./js/MapLimit"
 
 export const Game = () => {
     const player = useRef({
@@ -41,6 +42,12 @@ export const Game = () => {
             right: false,
         }
     });
+    const world = useRef({
+        x: -5000,
+        y: -2000,
+        width: 30000,
+        height: 10000,
+    })
     const stones = useRef([]);
     const bulls = useRef([]);
     const game = useRef({
@@ -63,6 +70,60 @@ export const Game = () => {
         return Math.floor(Math.random() * (max - min)) + min;
     }
 
+    useEffect(() => {
+        for (let i = 0; i <= 45; i++) {
+            for (let q = 0; q <= 145; q++) {
+                if (i > 0 && i < 45) {
+                    if (q === 0 || q === 145) {
+                        mapData.objects.push({ x: q * 200 - 5000, y: i * 200 - 2000, width: 500, height: 600, image: "https://pngimg.com/d/tree_PNG92721.png", hitBox: {x: q * 200 - 4765, y: i * 200 - 1470, width: 30, height: 20}});
+                    }
+                } else if (i === 0) {
+                    mapData.objects.push({ x: q * 200 - 5000, y: i * 200 - 2000, width: 500, height: 600, image: "https://pngimg.com/d/tree_PNG92721.png", hitBox: {x: q * 200 - 4765, y: i * 200 - 1470, width: 30, height: 20}});
+                } else if (i === 45) {
+                    mapData.objects.push({ x: q * 200 - 5000, y: i * 200 - 2000, width: 500, height: 600, image: "https://pngimg.com/d/tree_PNG92721.png", hitBox: {x: q * 200 - 4765, y: i * 200 - 1470, width: 30, height: 20}});
+                }
+            }
+        }
+        for (let i = 0; i <= 45; i++) {
+            for (let q = 0; q <= 145; q++) {
+                if (i > 0 && i < 45) {
+                    if (q === 0 || q === 145) {
+                        mapData.objects.push({ x: q * 200 - 4700, y: i * 200 - 1800, width: 500, height: 600, image: "https://pngimg.com/d/tree_PNG92721.png", hitBox: {x: q * 200 - 4465, y: i * 200 - 1270, width: 30, height: 20}});
+                    }
+                } else if (i === 0) {
+                    mapData.objects.push({ x: q * 200 - 4700, y: i * 200 - 1800, width: 500, height: 600, image: "https://pngimg.com/d/tree_PNG92721.png", hitBox: {x: q * 200 - 4465, y: i * 200 - 1270, width: 30, height: 20}});
+                } else if (i === 45) {
+                    mapData.objects.push({ x: q * 200 - 4700, y: i * 200 - 1800, width: 500, height: 600, image: "https://pngimg.com/d/tree_PNG92721.png", hitBox: {x: q * 200 - 4465, y: i * 200 - 1270, width: 30, height: 20}});
+                }
+            }
+        }
+    }, []);
+
+    // useEffect(() => {
+    //     let r = 0;
+    //     let x;
+    //     let y;
+    //     while (r < 50) {
+    //         r++;
+    //         x = getRndInteger(2000, 5000);
+    //         y = getRndInteger(2000, 5000);
+    //         mapData.objects.push({
+    //             damage: true,
+    //             x: x,
+    //             y: y,
+    //             width: 500,
+    //             height: 600,
+    //             image: "https://pngimg.com/d/tree_PNG92721.png",
+    //             hitBox: {
+    //                 width: 30,
+    //                 height: 20,
+    //                 x: x + 235, // + 235
+    //                 y: y + 530, // + 530
+    //             },
+    //         })
+    //     }
+    // }, []);
+
     // useEffect(() => {
     //     let r = 0;
     //     let x;
@@ -76,7 +137,7 @@ export const Game = () => {
     //             damage: true,
     //             x: x,
     //             y: y,
-    //             width: 200,
+    //             width: 500,
     //             height: 200,
     //             image: r % 2 === 0 ? "https://freepngimg.com/thumb/man/148289-standing-man-business-suit-png-free-photo.png" : "https://i.pinimg.com/originals/c8/88/0f/c8880fd46397ea368d85e1933c274ac0.png",
     //             hitBox: {
@@ -91,31 +152,6 @@ export const Game = () => {
 
     useEffect(() => {
         let r = 0;
-        let x;
-        let y;
-        while (r < 50) {
-            r++;
-            x = getRndInteger(2000, 5000);
-            y = getRndInteger(2000, 5000);
-            mapData.objects.push({
-                damage: true,
-                x: x,
-                y: y,
-                width: 500,
-                height: 600,
-                image: "https://pngimg.com/d/tree_PNG92721.png",
-                hitBox: {
-                    width: 30,
-                    height: 20,
-                    x: x + 235, // + 235
-                    y: y + 530, // + 530
-                },
-            })
-        }
-    }, []);
-
-    useEffect(() => {
-        let r = 0;
         while (r < 6) {
             r++;
             mapData.people.push({
@@ -123,7 +159,7 @@ export const Game = () => {
                 damage: true,
                 x: 2800,
                 y: -200 + (100 * r),
-                width: 200,
+                width: 500,
                 height: 200,
                 image: "https://purepng.com/public/uploads/large/playerunknowns-battlegrounds-man-with-gun-pubg-u4n.png",
                 hitBox: {
@@ -193,7 +229,7 @@ export const Game = () => {
                 }
             })
 
-            // console.log(Distance(player.current, mapData.finishPlace));
+            MapLimit(world.current, player.current);
 
             // hoolig tusad n array bolgoj oruulj irne ene funcig oorchilno
             for (let i = 0; i < mapData.food.length; i++) {
@@ -257,7 +293,7 @@ export const Game = () => {
                 if (item.type === "thrower") {
                     let distance = Distance(player.current, item);
                     if (distance <= 400 && item.damage) {
-                        shoot(item, 20, 20, 8, "https://www.pngall.com/wp-content/uploads/5/Stone-PNG-High-Quality-Image.png");
+                        shoot(stones ,item, 20, 20, 8, "https://www.pngall.com/wp-content/uploads/5/Stone-PNG-High-Quality-Image.png");
                         item.damage = false;
                         setTimeout(() => {
                             item.damage = true;
@@ -270,7 +306,7 @@ export const Game = () => {
                 if (item.type === "shooter") {
                     let distance = Distance(player.current, item);
                     if (distance <= 400 && item.damage) {
-                        shoot(item, 15, 15, 20, "https://freepngimg.com/save/21882-bullet/1024x768");
+                        shoot(bulls, item, 15, 15, 20, "https://freepngimg.com/save/21882-bullet/1024x768");
                         item.damage = false;
                         setTimeout(() => {
                             item.damage = true;
@@ -289,9 +325,14 @@ export const Game = () => {
                 if (item.type === "homeless") {
                     let distance = Distance(player.current, item);
                     if (distance <= 500) {
-                        console.log(distance);
                         if (distance >= 50) {
                             Follow(player.current, item);
+                            // mapData.objects.forEach((obj, _index) => {
+                            //     if (obj.hitBox && obj.hitBox.x + obj.hitBox.width > -100 && obj.hitBox.y + obj.hitBox.height > -100 && obj.hitBox.x < 1100 && obj.hitBox.y < 700) {
+                            //         if (!Detect(player.current, obj)) {
+                            //         }
+                            //     }
+                            // })
                         }
                         if (Detect(player.current, item, 50) && item.damage) {
                             player.current.health -= 6;
@@ -337,6 +378,9 @@ export const Game = () => {
             })
             mapData.finishPlace.x += velocity.current.x;
             mapData.finishPlace.y += velocity.current.y;
+            //
+            world.current.x += velocity.current.x;
+            world.current.y += velocity.current.y;
         }, 30);
     }, [time]);
 
@@ -350,8 +394,8 @@ export const Game = () => {
         }
     }
 
-    const shoot = (obj, width, height, speed, image) => {
-        bulls.current.push({
+    const shoot = (material, obj, width, height, speed, image) => {
+        material.current.push({
             x: obj.x + obj.width * 0.5,
             y: obj.y + obj.height * 0.3,
             first: {
@@ -435,14 +479,19 @@ export const Game = () => {
 
     // console.log(player.current.y + player.current.height - 25 , mapData.food[0].hitBox?.y)
     // console.log(mapData.food[0].hitBox.y)
-    // console.log(mapData.finishPlace)
+    console.log(world.current.x)
+    console.log(world.current.x + world.current.width)
+    console.log(world.current.y)
+    console.log(world.current.y + world.current.height)
 
     return (
         <div className={styles.contain}>
             <World image="https://img.freepik.com/free-vector/seamless-green-grass-pattern_1284-52275.jpg" size={150} x={mapPosition.current.x} y={mapPosition.current.y}>
+                {/* <HitBox x={world.current.x} y={world.current.y} width={world.current.width} height={world.current.height} /> */}
+
                 {mapData.objects.map((item, index) => {
                     if (item.x < 1600 && item.x + item.width > -600 && item.y < 1200 && item.y + item.height > -600) {
-                        return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} ahead={player.current.y + player.current.height - 25 < item.hitBox?.y} opacity={item.y < player.current.y && item.y + item.height > 500 && item.x + 150 < player.current.x + player.current.width && item.x + item.width - 150 > player.current.x ? 0.5 : 1} />
+                        return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} ahead={player.current.y + player.current.height - 25 < item.hitBox?.y} opacity={item.y < player.current.y && item.y + item.height > 500 && item.x + 150 < player.current.x + player.current.width && item.x + item.width - 150 > player.current.x ? 0.3 : 1} />
                     } return <></>
                 })}
 

@@ -294,8 +294,8 @@ export default {
         },
     ],
     finishPlace: {
-        x: 3000,
-        y: 100,
+        x: 20000,
+        y: 6000,
         width: 100,
         height: 100,
         image: "https://static.vecteezy.com/system/resources/previews/009/397/874/original/grave-stone-clipart-design-illustration-free-png.png"

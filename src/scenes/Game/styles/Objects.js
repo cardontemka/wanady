@@ -43,6 +43,6 @@ export const HitBox = styled.div`
     height: ${props => props.height * flex}px;
     left: ${props => props.x * flex}px;
     top: ${props => props.y * flex}px;
-    background-color: red;
-    z-index: 10;
+    background-color: green;
+    z-index: 0;
 `
