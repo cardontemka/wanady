@@ -10,4 +10,5 @@ export const World = styled.div`
     background-position: ${props => props.x * flex}px ${props => props.y * flex}px;
     overflow: hidden;
     position: relative;
+    z-index: 0;
 `

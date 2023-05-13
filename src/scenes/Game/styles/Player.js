@@ -12,6 +12,6 @@ export const Player = styled.div`
     transform: ${props => props.left ? "rotateY(180deg)" : props.right && "rotateY(0deg)"};
     top: ${props => props.y * flex}px;
     left: ${props => props.x * flex}px;
-    z-index: 2;
+    z-index: ${props => props.index};
     transition: transform 300ms;
 `

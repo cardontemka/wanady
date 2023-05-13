@@ -75,12 +75,12 @@ export const Game = () => {
             for (let q = 0; q <= 145; q++) {
                 if (i > 0 && i < 45) {
                     if (q === 0 || q === 145) {
-                        mapData.objects.push({ x: q * 200 - 5000, y: i * 200 - 2000, width: 500, height: 600, image: "https://pngimg.com/d/tree_PNG92721.png", hitBox: {x: q * 200 - 4765, y: i * 200 - 1470, width: 30, height: 20}});
+                        mapData.objects.push({ x: q * 200 - 5000, y: i * 200 - 2000, width: 500, height: 600, image: "https://pngimg.com/d/tree_PNG92721.png", hitBox: { x: q * 200 - 4765, y: i * 200 - 1470, width: 30, height: 20 } });
                     }
                 } else if (i === 0) {
-                    mapData.objects.push({ x: q * 200 - 5000, y: i * 200 - 2000, width: 500, height: 600, image: "https://pngimg.com/d/tree_PNG92721.png", hitBox: {x: q * 200 - 4765, y: i * 200 - 1470, width: 30, height: 20}});
+                    mapData.objects.push({ x: q * 200 - 5000, y: i * 200 - 2000, width: 500, height: 600, image: "https://pngimg.com/d/tree_PNG92721.png", hitBox: { x: q * 200 - 4765, y: i * 200 - 1470, width: 30, height: 20 } });
                 } else if (i === 45) {
-                    mapData.objects.push({ x: q * 200 - 5000, y: i * 200 - 2000, width: 500, height: 600, image: "https://pngimg.com/d/tree_PNG92721.png", hitBox: {x: q * 200 - 4765, y: i * 200 - 1470, width: 30, height: 20}});
+                    mapData.objects.push({ x: q * 200 - 5000, y: i * 200 - 2000, width: 500, height: 600, image: "https://pngimg.com/d/tree_PNG92721.png", hitBox: { x: q * 200 - 4765, y: i * 200 - 1470, width: 30, height: 20 } });
                 }
             }
         }
@@ -88,41 +88,41 @@ export const Game = () => {
             for (let q = 0; q <= 145; q++) {
                 if (i > 0 && i < 45) {
                     if (q === 0 || q === 145) {
-                        mapData.objects.push({ x: q * 200 - 4700, y: i * 200 - 1800, width: 500, height: 600, image: "https://pngimg.com/d/tree_PNG92721.png", hitBox: {x: q * 200 - 4465, y: i * 200 - 1270, width: 30, height: 20}});
+                        mapData.objects.push({ x: q * 200 - 4700, y: i * 200 - 1800, width: 500, height: 600, image: "https://pngimg.com/d/tree_PNG92721.png", hitBox: { x: q * 200 - 4465, y: i * 200 - 1270, width: 30, height: 20 } });
                     }
                 } else if (i === 0) {
-                    mapData.objects.push({ x: q * 200 - 4700, y: i * 200 - 1800, width: 500, height: 600, image: "https://pngimg.com/d/tree_PNG92721.png", hitBox: {x: q * 200 - 4465, y: i * 200 - 1270, width: 30, height: 20}});
+                    mapData.objects.push({ x: q * 200 - 4700, y: i * 200 - 1800, width: 500, height: 600, image: "https://pngimg.com/d/tree_PNG92721.png", hitBox: { x: q * 200 - 4465, y: i * 200 - 1270, width: 30, height: 20 } });
                 } else if (i === 45) {
-                    mapData.objects.push({ x: q * 200 - 4700, y: i * 200 - 1800, width: 500, height: 600, image: "https://pngimg.com/d/tree_PNG92721.png", hitBox: {x: q * 200 - 4465, y: i * 200 - 1270, width: 30, height: 20}});
+                    mapData.objects.push({ x: q * 200 - 4700, y: i * 200 - 1800, width: 500, height: 600, image: "https://pngimg.com/d/tree_PNG92721.png", hitBox: { x: q * 200 - 4465, y: i * 200 - 1270, width: 30, height: 20 } });
                 }
             }
         }
     }, []);
 
-    // useEffect(() => {
-    //     let r = 0;
-    //     let x;
-    //     let y;
-    //     while (r < 50) {
-    //         r++;
-    //         x = getRndInteger(2000, 5000);
-    //         y = getRndInteger(2000, 5000);
-    //         mapData.objects.push({
-    //             damage: true,
-    //             x: x,
-    //             y: y,
-    //             width: 500,
-    //             height: 600,
-    //             image: "https://pngimg.com/d/tree_PNG92721.png",
-    //             hitBox: {
-    //                 width: 30,
-    //                 height: 20,
-    //                 x: x + 235, // + 235
-    //                 y: y + 530, // + 530
-    //             },
-    //         })
-    //     }
-    // }, []);
+    useEffect(() => {
+        let r = 0;
+        let x;
+        let y;
+        while (r < 50) {
+            r++;
+            x = getRndInteger(-5000, 0);
+            y = getRndInteger(-2000, 0);
+            mapData.objects.push({
+                damage: true,
+                x: x,
+                y: y,
+                width: 500,
+                height: 600,
+                image: "https://pngimg.com/d/tree_PNG92721.png",
+                hitBox: {
+                    width: 30,
+                    height: 20,
+                    x: x + 235, // + 235
+                    y: y + 530, // + 530
+                },
+            })
+        }
+    }, []);
 
     // useEffect(() => {
     //     let r = 0;
@@ -196,7 +196,7 @@ export const Game = () => {
                 if (player.current.hunger <= 1 && player.current.health >= 0) {
                     player.current.health--;
                 } else if (player.current.hunger > 30 && player.current.health <= 100) {
-                    player.current.health += 3;
+                    player.current.health += player.current.hunger * 0.02 + 3;
                 }
             }
             // win
@@ -226,6 +226,94 @@ export const Game = () => {
             mapData.people.forEach((item, _index) => {
                 if (item.hitBox && item.hitBox.x + item.hitBox.width > -100 && item.hitBox.y + item.hitBox.height > -100 && item.hitBox.x < 1100 && item.hitBox.y < 700) {
                     WallCollision(player.current, item)
+                    if (item.type === "thrower") {
+                        let distance = Distance(player.current, item);
+                        if (distance <= 400 && item.damage) {
+                            shoot(stones.current, item, 20, 20, 8, "https://www.pngall.com/wp-content/uploads/5/Stone-PNG-High-Quality-Image.png");
+                            item.damage = false;
+                            setTimeout(() => {
+                                item.damage = true;
+                            }, 1500);
+                        }
+                        // if (distance <= 400 && time % 50 === 10) {
+                        //     throwStone(item);
+                        // }
+                    }
+                    if (item.type === "shooter") {
+                        let distance = Distance(player.current, item);
+                        if (distance <= 400 && item.damage) {
+                            shoot(bulls.current, item, 15, 15, 20, "https://freepngimg.com/save/21882-bullet/1024x768");
+                            item.damage = false;
+                            setTimeout(() => {
+                                item.damage = true;
+                            }, 3000);
+                        }
+                    }
+                    if (item.type === "beater") {
+                        if (Detect(player.current, item, 40) && item.damage) {
+                            player.current.health -= 4;
+                            item.damage = false;
+                            setTimeout(() => {
+                                item.damage = true;
+                            }, 1000);
+                        }
+                    }
+                    if (item.type === "homeless") {
+                        let distance = Distance(player.current, item);
+                        if (distance <= 500) {
+                            if (distance >= 50) {
+                                let objDetected = false
+                                for (let i = 0; i < mapData.objects.length; i++) {
+                                    if (mapData.objects[i].x + mapData.objects[i].width > -100 && mapData.objects[i].y + mapData.objects[i].height > -100 && mapData.objects[i].x < 1100 && mapData.objects[i].y < 700) {
+                                        objDetected = true;
+                                        let mx = Math.cos(Vector(player.current, item)) * 10;
+                                        let my = Math.sin(Vector(player.current, item)) * 10;
+                                        // if (!Detect(item.hitBox, mapData.objects[i], 10)) {
+                                        if (!Detect(item.hitBox, mapData.objects[i], 0)) {
+                                            Follow(player.current, item);
+                                            break;
+                                        } else {
+                                            if (!(item.hitBox.x + mx <= mapData.objects[i].x + mapData.objects[i].width && item.hitBox.x + item.hitBox.width + mx >= mapData.objects[i].x && item.hitBox.y + my <= mapData.objects[i].y + mapData.objects[i].height && item.hitBox.y + item.hitBox.height + my >= mapData.objects[i].y)) {
+                                                Follow(player.current, item);
+                                                break;
+                                            }
+                                            break;
+                                        }
+                                    }
+                                }
+                                // for (let i = 0; i < mapData.food.length; i++) {
+                                //     if (mapData.food[i].x + mapData.food[i].width > -100 && mapData.food[i].y + mapData.food[i].height > -100 && mapData.food[i].x < 1100 && mapData.food[i].y < 700) {
+                                //         objDetected = true;
+                                //         let mx = Math.cos(Vector(player.current, item)) * 10;
+                                //         let my = Math.sin(Vector(player.current, item)) * 10;
+                                //         console.log(mx, my)
+                                //         // if (!Detect(item.hitBox, mapData.food[i], 10)) {
+                                //         if (!(item.hitBox.x <= mapData.food[i].x + mapData.food[i].width && item.hitBox.x + item.hitBox.width >= mapData.food[i].x && item.hitBox.y <= mapData.food[i].y + mapData.food[i].height && item.hitBox.y + item.hitBox.height >= mapData.food[i].y)) {
+                                //             Follow(player.current, item);
+                                //             console.log("llr")
+                                //             break;
+                                //         } else {
+                                //             if (!(item.hitBox.x + mx <= mapData.food[i].x + mapData.food[i].width && item.hitBox.x + item.hitBox.width + mx >= mapData.food[i].x && item.hitBox.y + my <= mapData.food[i].y + mapData.food[i].height && item.hitBox.y + item.hitBox.height + my >= mapData.food[i].y)) {
+                                //                 Follow(player.current, item);
+                                //                 break;
+                                //             }
+                                //             break;
+                                //         }
+                                //     }
+                                // }
+                                if (!objDetected) {
+                                    Follow(player.current, item);
+                                }
+                            }
+                            if (Detect(player.current, item, 50) && item.damage) {
+                                player.current.health -= 6;
+                                item.damage = false;
+                                setTimeout(() => {
+                                    item.damage = true;
+                                }, 1000);
+                            }
+                        }
+                    }
                 }
             })
 
@@ -290,59 +378,6 @@ export const Game = () => {
                     item.hitBox.x += velocity.current.x;
                     item.hitBox.y += velocity.current.y;
                 }
-                if (item.type === "thrower") {
-                    let distance = Distance(player.current, item);
-                    if (distance <= 400 && item.damage) {
-                        shoot(stones ,item, 20, 20, 8, "https://www.pngall.com/wp-content/uploads/5/Stone-PNG-High-Quality-Image.png");
-                        item.damage = false;
-                        setTimeout(() => {
-                            item.damage = true;
-                        }, 1500);
-                    }
-                    // if (distance <= 400 && time % 50 === 10) {
-                    //     throwStone(item);
-                    // }
-                }
-                if (item.type === "shooter") {
-                    let distance = Distance(player.current, item);
-                    if (distance <= 400 && item.damage) {
-                        shoot(bulls, item, 15, 15, 20, "https://freepngimg.com/save/21882-bullet/1024x768");
-                        item.damage = false;
-                        setTimeout(() => {
-                            item.damage = true;
-                        }, 3000);
-                    }
-                }
-                if (item.type === "beater") {
-                    if (Detect(player.current, item, 40) && item.damage) {
-                        player.current.health -= 4;
-                        item.damage = false;
-                        setTimeout(() => {
-                            item.damage = true;
-                        }, 1000);
-                    }
-                }
-                if (item.type === "homeless") {
-                    let distance = Distance(player.current, item);
-                    if (distance <= 500) {
-                        if (distance >= 50) {
-                            Follow(player.current, item);
-                            // mapData.objects.forEach((obj, _index) => {
-                            //     if (obj.hitBox && obj.hitBox.x + obj.hitBox.width > -100 && obj.hitBox.y + obj.hitBox.height > -100 && obj.hitBox.x < 1100 && obj.hitBox.y < 700) {
-                            //         if (!Detect(player.current, obj)) {
-                            //         }
-                            //     }
-                            // })
-                        }
-                        if (Detect(player.current, item, 50) && item.damage) {
-                            player.current.health -= 6;
-                            item.damage = false;
-                            setTimeout(() => {
-                                item.damage = true;
-                            }, 1000);
-                        }
-                    }
-                }
                 // if (item.type === "beat") {
                 //     let distance = Distance(player.current, item);
                 //     if (distance <= 300 && distance >= 10) {
@@ -369,7 +404,7 @@ export const Game = () => {
                 item.first.x += velocity.current.x;
                 item.first.y += velocity.current.y;
                 if (Detect(player.current, item, 30)) {
-                    player.current.health -= 20;
+                    player.current.health -= 30;
                     bulls.current.splice(index, 1);
                 }
                 if (Math.abs(item.x - item.first.x) + Math.abs(item.y - item.first.y) >= 800) {
@@ -395,7 +430,7 @@ export const Game = () => {
     }
 
     const shoot = (material, obj, width, height, speed, image) => {
-        material.current.push({
+        material.push({
             x: obj.x + obj.width * 0.5,
             y: obj.y + obj.height * 0.3,
             first: {
@@ -479,42 +514,44 @@ export const Game = () => {
 
     // console.log(player.current.y + player.current.height - 25 , mapData.food[0].hitBox?.y)
     // console.log(mapData.food[0].hitBox.y)
-    console.log(world.current.x)
-    console.log(world.current.x + world.current.width)
-    console.log(world.current.y)
-    console.log(world.current.y + world.current.height)
+    // console.log(world.current.x)
+    // console.log(world.current.x + world.current.width)
+    // console.log(world.current.y)
+    // console.log(world.current.y + world.current.height)
 
     return (
         <div className={styles.contain}>
             <World image="https://img.freepik.com/free-vector/seamless-green-grass-pattern_1284-52275.jpg" size={150} x={mapPosition.current.x} y={mapPosition.current.y}>
                 {/* <HitBox x={world.current.x} y={world.current.y} width={world.current.width} height={world.current.height} /> */}
+                {/* ahead={player.current.y + player.current.height - 25 < item.hitBox?.y} */}
 
                 {mapData.objects.map((item, index) => {
-                    if (item.x < 1600 && item.x + item.width > -600 && item.y < 1200 && item.y + item.height > -600) {
-                        return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} ahead={player.current.y + player.current.height - 25 < item.hitBox?.y} opacity={item.y < player.current.y && item.y + item.height > 500 && item.x + 150 < player.current.x + player.current.width && item.x + item.width - 150 > player.current.x ? 0.3 : 1} />
+                    if (item.x < 1100 && item.x + item.width > -100 && item.y < 700 && item.y + item.height > -100) {
+                        console.log(Math.trunc((item.y + item.height) * 0.01 + 1))
+                        return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} ahead={Math.trunc((item.y + item.height) * 0.01 + 1)} opacity={item.y < player.current.y && item.y + item.height > 500 && item.x + 150 < player.current.x + player.current.width && item.x + item.width - 150 > player.current.x ? 0.3 : 1} />
                     } return <></>
                 })}
 
                 {mapData.food.map((item, index) => {
-                    if (item.x < 1600 && item.x + item.width > -600 && item.y < 1200 && item.y + item.height > -600) {
-                        return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} ahead={player.current.y + player.current.height - 25 < item.hitBox?.y} />
+                    if (item.x < 1100 && item.x + item.width > -100 && item.y < 700 && item.y + item.height > -100) {
+                        return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} ahead={Math.trunc((item.y + item.height) * 0.01 + 1)} />
                     } return <></>
                 })}
 
                 {mapData.people.map((item, index) => {
-                    if (item.x < 1600 && item.x + item.width > -600 && item.y < 1200 && item.y + item.height > -600) {
-                        return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} ahead={player.current.y + player.current.height - 25 < item.hitBox?.y} />
+                    if (item.x < 1100 && item.x + item.width > -100 && item.y < 700 && item.y + item.height > -100) {
+                        return <Object x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} ahead={Math.trunc((item.y + item.height) * 0.01 + 1)} />
                     } return <></>
                 })}
 
                 {stones.current.map((item, index) => {
-                    if (item.x < 1600 && item.x + item.width > -600 && item.y < 1200 && item.y + item.height > -600) {
+                    if (item.x < 1100 && item.x + item.width > -100 && item.y < 700 && item.y + item.height > -100) {
                         return <Bull x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} angle={item.angle} />
                     } return <></>
                 })}
 
                 {bulls.current.map((item, index) => {
-                    if (item.x < 1600 && item.x + item.width > -600 && item.y < 1200 && item.y + item.height > -600) {
+                    if (item.x < 1100 && item.x + item.width > -100 && item.y < 700 && item.y + item.height > -100) {
                         return <Bull x={item.x} y={item.y} width={item.width} height={item.height} image={item.image} key={index} angle={item.angle} />
                     } return <></>
                 })}
@@ -529,11 +566,11 @@ export const Game = () => {
                     return <HitBox x={item.hitBox.x} y={item.hitBox.y} width={item.hitBox.width} height={item.hitBox.height} image={item.hitBox.image} key={index} />
                 })} */}
 
-                <Object x={12} y={16} width={20} height={20} image={heartImg} ahead={true} />
+                <Object x={12} y={16} width={20} height={20} image={heartImg} ahead={100} />
                 <HealthBar x={40} y={20} color="red" health={player.current.health} />
-                <Object x={12} y={41} width={20} height={20} image={hungerImg} ahead={true} />
+                <Object x={12} y={41} width={20} height={20} image={hungerImg} ahead={100} />
                 <HealthBar x={40} y={45} color="brown" health={player.current.hunger} />
-                <Player x={player.current.x} y={player.current.y} width={player.current.width} height={player.current.height} image={player.current.image} left={player.current.last.left} right={player.current.last.right} up={player.current.last.up} down={player.current.last.down} />
+                <Player x={player.current.x} y={player.current.y} width={player.current.width} height={player.current.height} image={player.current.image} left={player.current.last.left} right={player.current.last.right} up={player.current.last.up} down={player.current.last.down} index={Math.trunc((player.current.y + player.current.height) * 0.01) + 1} />
                 {player.current.text && <Text x={player.current.x + 10} y={player.current.y - 30} size={25} color="white" >{player.current.text}</Text>}
                 {player.current.text && <CircleBar x={player.current.x + player.current.width / 2 - 15} y={player.current.y} width={30} height={30} color="rgb(255, 166, 0)" fill={mapData.food[player.current.foodId].attemps / mapData.food[player.current.foodId].value * 360}  ></CircleBar>}
             </World>

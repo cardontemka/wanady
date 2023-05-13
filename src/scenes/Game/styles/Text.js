@@ -8,5 +8,5 @@ export const Text = styled.div`
     top: ${props => props.y * flex}px;
     color: ${props => props.color};
     -webkit-text-stroke: ${0.5 * flex}px black;
-    z-index: 5;
+    z-index: 100;
 `

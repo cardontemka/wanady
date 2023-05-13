@@ -14,7 +14,7 @@ export const Object = styled.div`
     background-repeat: no-repeat;
     left: ${props => props.x * flex}px;
     top: ${props => props.y * flex}px;
-    z-index: ${props => props.ahead ? 3 : 1};
+    z-index: ${props => props.ahead};
     opacity: ${props => props.opacity};
     transition: opacity 500ms;
 `
@@ -44,5 +44,5 @@ export const HitBox = styled.div`
     left: ${props => props.x * flex}px;
     top: ${props => props.y * flex}px;
     background-color: green;
-    z-index: 0;
+    z-index: 5;
 `

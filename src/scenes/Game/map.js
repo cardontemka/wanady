@@ -86,7 +86,7 @@ export default {
             type: "shooter",
             damage: true,
             x: 100,
-            y: 500,
+            y: 800,
             width: 200,
             height: 200,
             image: manWithGunImg,
@@ -94,7 +94,7 @@ export default {
                 width: 20,
                 height: 10,
                 x: 190, // origin + 90
-                y: 630, // origin + 130
+                y: 930, // origin + 130
             },
         },
         {
@@ -294,8 +294,8 @@ export default {
         },
     ],
     finishPlace: {
-        x: 20000,
-        y: 6000,
+        x: 2200,
+        y: 700,
         width: 100,
         height: 100,
         image: "https://static.vecteezy.com/system/resources/previews/009/397/874/original/grave-stone-clipart-design-illustration-free-png.png"

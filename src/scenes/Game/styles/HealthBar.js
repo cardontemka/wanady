@@ -9,5 +9,5 @@ export const HealthBar = styled.div`
     top: ${props => props.y * flex}px;
     background: linear-gradient(to right, ${props => props.color} 0%, ${props => props.color} ${props => props.health}%, black 0%, black 100%);
     border: ${2 * flex}px solid black;
-    z-index: 5;
+    z-index: 100;
 `
